@@ -1,0 +1,1036 @@
+Passo a passo percorrido no terminal doDebian
+
+1. Baixar dados do servidor
+   1a - Pontos de endereços
+   wget --no-passive-ftp -r --no-parent https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Arquivos_CNEFE/UF/
+
+   1b - Faces
+   wget --no-passive-ftp -r --no-parent https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2022/base_de_faces_de_logradouros_versao_2022_censo_demografico/shp/
+   
+   1c - Pontos de endereços 2010
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/AC/12.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/AL/27.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/AP/16.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/AM/13.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/BA/29.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/CE/23.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/DF/53.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/ES/32.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/GO/52.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/MA/21.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/MT/51.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/MS/50.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/MG/31.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/PA/15.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/PB/25.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/PR/41.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/PE/26.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/PI/22.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/RJ/33.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/RN/24.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/RS/43.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/RO/11.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/RR/14.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/SC/42.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/SP/35.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/SE/28.zip
+   wget -c https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2010/TO/17.zip
+
+   1d - Faces 2010
+   À exceção de pequenas diferenças, os identificadores de faces permanecem os mesmos, e ao passar dos anos, com melhor qualidade. Por isso, será usado o de 2022.
+   Pode ser útil, porém, para detectar nomes de logradouros que mudaram de 2010 para 2022.
+   
+2. O recenseamento é feito quadra por quadra no sentido horário começando pela face 001 indo até a n-ésima face. Isso implica que agora, com as faces alinhadas ainda é possível estimar a posição dos pontos de 2010 no mapa, bem como estimar mudanças em nomes de ruas, numeração que passaram a existir e que deixaram de existir, ceps que mudaram ou não e etc.
+   
+3. Descompactar todos os arquivos. Executar de dentro da pasta com os zips baixados. Seguir este passo tanto para os pontos de endereços de 2010 e 2022, quanto para as faces. Se tiverem em pastas separadas, crie uma pasta para os pontos de endereço e outra para as faces, e junte cada tipo de arquivo em sua referente pasta.
+   for file in *.zip; do unzip "$file" -d ./; done
+
+4. Unir todos os CSVs em um mesmo CSV
+   3a. Pontos de endereços: Unir todos os CSVs em um único arquivo
+   cat *.csv > dadoscrus.csv
+   3b. Pontos de endereços 2010: Unir todos os CSVs em um único arquivo
+   cat *.txt > dadoscrus2010.txt   
+
+5. Pontos de endereços 2022: Testar se existe linha com virgula. Resultado: Não existe.
+sed -n '/,/p' dadoscrus.csv
+
+6. Pontos de endereços 2022: Como não existe ',', é possível substituir todas ; por , para ser aceito no script do passo 7
+sed 's/;/,/g' dadoscrus.csv > temp.csv && mv temp.csv dadoscrus.csv
+
+7. Pontos de endereços 2022: Testar se existe linhas com numero de colunas diferente de 33. Resultado: Nâo existe.
+awk -F',' 'NF-1 != 33' dadoscrus.csv
+
+8. Como os pontos de endereço de 2010 tem ',', é preciso substituir por caracter coringa, para o script funcionar. Depois no banco de dados se faz a correção. Substituir ',' por '>'.
+   Testa positivo para existencia de ',': sed -n '/,/p' dadoscrus2010.txt
+   Testa negativo para existencia de '?': sed -n '/>/p' dadoscrus2010.txt
+   Então substitui-se ',' por '?': sed -i 's/,/?/g' dadoscrus2010.txt
+
+
+9. Carregar pontos de endereço e faces para o banco de dados
+   7a. Pontos de endereços: Carregar CSV para dentro de banco de dados. Configure script antes de executar. Instrução no script.
+   2022: python3 01_loadcsv2psql.py
+   2010: python3 01_loadtxt2psql.py
+
+   7b. Faces: Colocar todos os arquivos de faces de municípios dentro de uma mesma pasta. Então, carregar SHPs para dentro do banco de dados.
+      find /caminho/para/faces/pasta_estados -type f -exec echo mv -t /caminho/para/faces_por_municipios {} +
+      python3 02_loadshp2psql.py
+   
+   
+10. Unir todos as tabelas de faces em uma só. IBGE disponibilizou um arquivo para cada município
+CREATE OR REPLACE PROCEDURE unir_tabelas_de_faces_em_uma_so_tabela()
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    tabelas TEXT[];
+    drop_query TEXT;
+BEGIN
+    -- Identificar todas as tabelas contendo a string 'faces_de_logradouros' em seus nomes
+    SELECT array_agg(quote_ident(table_schema) || '.' || quote_ident(table_name))
+    INTO tabelas
+    FROM information_schema.tables
+    WHERE table_name LIKE '%_faces_de_logradouros%';
+
+    -- Checar se há tabelas a serem unidas
+    IF tabelas IS NULL THEN
+        RAISE NOTICE 'Nenhuma tabela contendo a string faces_de_logradouros foi encontrada. Nada a ser unido';
+        RETURN;
+    END IF;
+
+    -- Montar a consulta SQL dinâmica para unir as tabelas
+    EXECUTE 'DROP TABLE IF EXISTS faces_de_logradouros';
+
+    EXECUTE 'CREATE TABLE faces_de_logradouros AS ' ||
+            'SELECT * FROM ' || array_to_string(tabelas, ' UNION ALL SELECT * FROM ');
+
+    RAISE NOTICE 'Tabelas foram unidas em faces_de_logradouros com sucesso';
+
+    -- Excluir tabelas que fora juntadas, neste caso, as que contem a string '_faces_de_logradouros' em seus nomes
+    FOR drop_query IN
+        SELECT 'DROP TABLE ' || quote_ident(table_schema) || '.' || quote_ident(table_name)
+        FROM information_schema.tables
+        WHERE table_name LIKE '%_faces_de_logradouros%'
+    LOOP
+        EXECUTE drop_query;
+        RAISE NOTICE 'Tabela excluida: %', drop_query;
+    END LOOP;
+
+    RAISE NOTICE 'Todas as tabelas temporárias foram excluidas com sucesso';
+END;
+$$;
+CALL unir_tabelas_de_faces_em_uma_so_tabela();
+-- Cria coluna Chave primária e preenche
+ALTER TABLE public.faces_de_logradouros ADD COLUMN id BIGSERIAL;
+ALTER TABLE public.faces_de_logradouros ADD PRIMARY KEY (id);
+
+
+11. Redireciona as geometrias de face no sentido 001 -> 002 -> 003 -> nnn -> 001
+
+-- Indexa campos para aumentar performance
+DROP INDEX IF EXISTS idx_faces_gid; CREATE INDEX idx_faces_gid ON public.faces_de_logradouros(gid);
+DROP INDEX IF EXISTS idx_faces_cd_setor; CREATE INDEX idx_faces_cd_setor ON public.faces_de_logradouros(cd_setor);
+DROP INDEX IF EXISTS idx_faces_cd_quadra; CREATE INDEX idx_faces_cd_quadra ON public.faces_de_logradouros(cd_quadra);
+DROP INDEX IF EXISTS idx_faces_cd_face; CREATE INDEX idx_faces_cd_face ON public.faces_de_logradouros(cd_face);
+DROP INDEX IF EXISTS idx_faces_nm_tip_log; CREATE INDEX idx_faces_nm_tip_log ON public.faces_de_logradouros(nm_tip_log);
+DROP INDEX IF EXISTS idx_faces_nm_tit_log; CREATE INDEX idx_faces_nm_tit_log ON public.faces_de_logradouros(nm_tit_log);
+DROP INDEX IF EXISTS idx_faces_nm_log; CREATE INDEX idx_faces_nm_log ON public.faces_de_logradouros(nm_log);
+DROP INDEX IF EXISTS idx_faces_geom; CREATE INDEX idx_faces_geom ON public.faces_de_logradouros USING GIST(geom);
+-- Função que redireciona faces. NULL se não for possível determinar o sentido da face.
+CREATE OR REPLACE FUNCTION direciona_faces_de_quadra_em_sentido_horario(setor TEXT, quadra TEXT, face TEXT)
+RETURNS GEOMETRY AS $$
+DECLARE
+    --setor TEXT;
+    --quadra TEXT;
+    f TEXT; -- f de face
+    face_list TEXT[];
+    next_face TEXT;
+    prev_face TEXT;
+    gid_var BIGINT;
+    geom_var GEOMETRY;
+    next_gid_var BIGINT;
+    next_geom_var GEOMETRY;
+    prev_gid_var BIGINT;
+    prev_geom_var GEOMETRY;
+    geom_direcionada GEOMETRY = NULL; -- Retornando nulo, não aplicar offset
+    -- Distâncias | Legenda: 
+       -- dist = distância, 
+       -- gc = geometria corrente, pg = próxima geometria, ga = geometria anterior
+       -- gci = geometria corrente invertida
+       -- pi = ponto inicial, pf = ponto_final
+    dist_gc_pf_pg_pi FLOAT;
+    dist_gc_pf_pg_pf FLOAT;
+    dist_gc_pi_ga_pi FLOAT;
+    dist_gc_pi_ga_pf FLOAT;
+    dist_gci_pf_ga_pi FLOAT;
+    dist_gci_pf_ga_pf FLOAT;
+    dist_gci_pi_ga_pi FLOAT;
+    dist_gci_pi_ga_pf FLOAT;
+            
+BEGIN
+
+   SELECT ARRAY(SELECT DISTINCT cd_face FROM public.faces_de_logradouros WHERE cd_setor = setor AND cd_quadra = quadra ORDER BY cd_face ASC) INTO face_list;
+   -- Somente redireciona as linhas se tiver mais de uma face onde se basear
+   IF array_length(face_list, 1) > 1 THEN 
+      SELECT gid, ST_GeometryN(geom, 1) INTO gid_var, geom_var FROM public.faces_de_logradouros WHERE cd_setor = setor AND cd_quadra = quadra AND cd_face = face; -- face atual
+
+      next_face := LPAD(((face::INT)+1)::TEXT, LENGTH(face), '0');
+      IF next_face NOT IN (SELECT unnest(face_list)) THEN
+         next_face := LPAD(face_list[1], LENGTH(face), '0');
+      END IF;
+
+      prev_face := LPAD(((face::INT)-1)::TEXT, LENGTH(face), '0');
+      IF prev_face NOT IN (SELECT unnest(face_list)) AND 
+         array_length(face_list, 1) <> 2 THEN
+         prev_face := LPAD(face_list[array_upper(face_list, 1)], LENGTH(face), '0');
+      END IF;
+
+         SELECT gid, ST_GeometryN(geom, 1) INTO next_gid_var, next_geom_var FROM public.faces_de_logradouros WHERE cd_setor = setor AND cd_quadra = quadra AND cd_face = next_face; -- proxima face
+         SELECT gid, ST_GeometryN(geom, 1) INTO prev_gid_var, prev_geom_var FROM public.faces_de_logradouros WHERE cd_setor = setor AND cd_quadra = quadra AND cd_face = prev_face; -- face anterior
+
+         dist_gc_pf_pg_pi = ST_Distance( ST_EndPoint(ST_Transform(geom_var,3857)), ST_StartPoint(ST_Transform(next_geom_var,3857)));
+         dist_gc_pf_pg_pf = ST_Distance( ST_EndPoint(ST_Transform(geom_var,3857)),   ST_EndPoint(ST_Transform(next_geom_var,3857)));
+         dist_gc_pi_ga_pi = ST_Distance( ST_StartPoint(ST_Transform(geom_var,3857)), ST_StartPoint(ST_Transform(prev_geom_var,3857)));
+         dist_gc_pi_ga_pf = ST_Distance( ST_StartPoint(ST_Transform(geom_var,3857)),   ST_EndPoint(ST_Transform(prev_geom_var,3857)));
+         dist_gci_pf_ga_pi = ST_Distance( ST_EndPoint(ST_Transform(ST_Reverse(geom_var),3857)), ST_StartPoint(ST_Transform(next_geom_var,3857)));
+         dist_gci_pf_ga_pf = ST_Distance( ST_EndPoint(ST_Transform(ST_Reverse(geom_var),3857)),   ST_EndPoint(ST_Transform(next_geom_var,3857)));
+         dist_gci_pi_ga_pi = ST_Distance( ST_StartPoint(ST_Transform(ST_Reverse(geom_var),3857)), ST_StartPoint(ST_Transform(prev_geom_var,3857)));
+         dist_gci_pi_ga_pf = ST_Distance( ST_StartPoint(ST_Transform(ST_Reverse(geom_var),3857)), ST_EndPoint(ST_Transform(prev_geom_var,3857)));
+
+         IF ST_Intersects(geom_var, next_geom_var) OR ST_Intersects(geom_var, prev_geom_var) 
+         THEN
+            IF ( dist_gc_pf_pg_pi > 1 AND dist_gc_pf_pg_pf > 1  ) AND ( dist_gci_pf_ga_pi < 1 OR dist_gci_pf_ga_pf < 1  )            
+            THEN  -- Redireciona baseada na próxima face:
+               geom_direcionada := ST_Reverse(geom_var);
+            ELSEIF  
+               ( dist_gc_pi_ga_pi > 1 AND dist_gc_pi_ga_pf > 1  ) AND ( dist_gci_pi_ga_pi < 1 OR  dist_gci_pi_ga_pf < 1  )
+            THEN -- Redireciona baseada na face anterior, util quando quadra não é fechada:
+                  geom_direcionada := ST_Reverse(geom_var);
+            ELSE -- Não redireciona, pois está correta
+               geom_direcionada = geom_var;
+            END IF;
+         ELSE -- Se não intersecta com a próxima ou anterior, anula
+            geom_direcionada := NULL;
+         END IF; 
+   ELSE
+      geom_direcionada := NULL;
+   END IF;
+   RETURN geom_direcionada;
+END;
+$$ LANGUAGE plpgsql;
+-- Dividir o procedimento abaixo para executar vários estados simultaneamente.
+  -- gera_faces_redirecionadas_por_estado.sql
+-- Ou se quiser rodar, pode demorar vários dias
+DROP TABLE IF EXISTS public.faces_de_logradouros_direcionadas;
+CREATE TABLE public.faces_de_logradouros_direcionadas AS
+SELECT id,
+	direciona_faces_de_quadra_em_sentido_horario(cd_setor,cd_quadra,cd_face) as geom_direcionada
+FROM public.faces_de_logradouros;
+
+
+12. Desloca alinhamento das faces para dentro da quadra
+-- Distancia do offset a ser decidida
+#TODO : Mesclar com faces_de_logradouros_nome_completo_logradouro
+DROP TABLE IF EXISTS public.faces_de_logradouros_direcionadas_com_offset_4_e_8;
+CREATE TABLE public.faces_de_logradouros_direcionadas_com_offset_4_e_8 AS
+SELECT id,
+   geom_direcionada,
+   ST_LineSubstring(
+       ST_Transform(
+           ST_OffsetCurve(
+               ST_Transform(geom_direcionada, 3857), 
+               -4,  -- Negative value for right offset
+               'quad_segs=4 join=mitre'
+           ), 
+           4326
+       ),  LEAST((4 / (ST_Length(ST_Transform(geom_direcionada, 3857)) / 100)) / 100, 0.04), 
+           GREATEST((100 - (4 / (ST_Length(ST_Transform(geom_direcionada, 3857)) / 100))) / 100, 0.96)
+   )AS geom_direcionada_com_offset_4, 
+   ST_LineSubstring(
+       ST_Transform(
+           ST_OffsetCurve(
+               ST_Transform(geom_direcionada, 3857), 
+               -8,  -- Negative value for right offset
+               'quad_segs=4 join=mitre'
+           ), 
+           4326
+       ),  LEAST((8 / (ST_Length(ST_Transform(geom_direcionada, 3857)) / 100)) / 100, 0.04), 
+           GREATEST((100 - (8 / (ST_Length(ST_Transform(geom_direcionada, 3857)) / 100))) / 100, 0.96)
+   )AS geom_direcionada_com_offset_8
+FROM public.faces_de_logradouros_direcionadas;
+
+
+
+13. Pontos de endereços 2010: Extrair cada coluna dos dados originais.
+DROP TABLE IF EXISTS public.dados2010_tipos_corrigidos;
+CREATE TABLE public.dados2010_tipos_corrigidos AS
+   SELECT
+      -- Exclui excesso de espaços; Substitui '?' de volta para ',';
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM   1 FOR 15), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(15) AS "COD_SETOR",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM  16 FOR  1), '?', ','), ' {2,}', ' ', 'g')), '')::SMALLINT    AS "SIT_SETOR",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM  17 FOR 20), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(20) AS "NOM_TIPO_SEGLOGR",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM  37 FOR 30), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(30) AS "NOM_TITULO_SEGLOGR",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM  67 FOR 60), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(60) AS "NOM_SEGLOGR",	   
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 127 FOR  8), '?', ','), ' {2,}', ' ', 'g')), '')::BIGINT      AS "NUM_ENDERECO", -- Checar se ::BIGINT
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 135 FOR  7), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(7)  AS "DSC_MODIFICADOR",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 142 FOR 20), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(20) AS "NOM_COMP_ELEM1",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 162 FOR 10), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(10) AS "VAL_COMP_ELEM1",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 172 FOR 20), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(20) AS "NOM_COMP_ELEM2",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 192 FOR 10), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(10) AS "VAL_COMP_ELEM2",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 202 FOR 20), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(20) AS "NOM_COMP_ELEM3",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 222 FOR 10), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(10) AS "VAL_COMP_ELEM3",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 232 FOR 20), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(20) AS "NOM_COMP_ELEM4",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 252 FOR 10), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(10) AS "VAL_COMP_ELEM4",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 262 FOR 20), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(20) AS "NOM_COMP_ELEM5",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 282 FOR 10), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(10) AS "VAL_COMP_ELEM5",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 292 FOR 20), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(20) AS "NOM_COMP_ELEM6",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 312 FOR 10), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(10) AS "VAL_COMP_ELEM6",	   
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 322 FOR 15), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(15) AS "LATITUDE",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 337 FOR 15), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(15) AS "LONGITUDE",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 352 FOR 60), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(60) AS "DSC_LOCALIDADE",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 412 FOR 60), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(60) AS "NULO",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 472 FOR  2), '?', ','), ' {2,}', ' ', 'g')), '')::SMALLINT    AS "COD_ESPECIE",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 474 FOR 40), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(40) AS "DSC_ESTABELECIMENTO",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 514 FOR  1), '?', ','), ' {2,}', ' ', 'g')), '')::SMALLINT    AS "IND_ENDERECO",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 515 FOR 30), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(30) AS "IDENT_DOM_COLET",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 545 FOR  3), '?', ','), ' {2,}', ' ', 'g')), '')::SMALLINT    AS "NUM_QUADRA",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 548 FOR  3), '?', ','), ' {2,}', ' ', 'g')), '')::SMALLINT    AS "NUM_FACE",
+      NULLIF(trim(regexp_replace(replace(substring(field001 FROM 551 FOR  8), '?', ','), ' {2,}', ' ', 'g')), '')::VARCHAR(8)  AS "CEP"
+   FROM public.dadoscrus2010
+   WHERE length(field001) = 558; -- Ignora 169 casos de linhas fora do padrão de 558 caracteres, como as que contem 'Espcie trocada pelo sistema.'
+
+
+
+
+14. Pontos de endereços 2022: Corrigir cada tipo de dado para tipo mais apropriado e definir como null as que estão vazias
+DELETE FROM public.dadoscrus WHERE "COD_UNICO_ENDERECO" = 'COD_UNICO_ENDERECO'; -- Apagar todas as linhas que eram para ser cabeçalhos
+DROP TABLE IF EXISTS public.dados_tipos_corrigidos;
+CREATE TABLE public.dados_tipos_corrigidos AS
+   SELECT
+      NULLIF("COD_UNICO_ENDERECO", '')::INTEGER AS "COD_UNICO_ENDERECO",
+      NULLIF("COD_UF", '')::SMALLINT AS "COD_UF",
+      NULLIF("COD_MUNICIPIO", '')::INTEGER AS "COD_MUNICIPIO",
+      NULLIF("COD_DISTRITO", '')::INTEGER AS "COD_DISTRITO",
+      NULLIF("COD_SUBDISTRITO", '')::BIGINT AS "COD_SUBDISTRITO",
+      NULLIF("COD_SETOR", '')::CHAR(16) AS "COD_SETOR",
+      NULLIF("NUM_QUADRA", '')::SMALLINT AS "NUM_QUADRA",
+      NULLIF("NUM_FACE", '')::SMALLINT AS "NUM_FACE",
+      NULLIF("CEP"::CHAR(8), '')::CHAR(8) AS "CEP",
+      NULLIF("DSC_LOCALIDADE", '')::VARCHAR(60) AS "DSC_LOCALIDADE",
+      NULLIF("NOM_TIPO_SEGLOGR", '')::VARCHAR(22) AS "NOM_TIPO_SEGLOGR",
+      NULLIF("NOM_TITULO_SEGLOGR", '')::VARCHAR(26) AS "NOM_TITULO_SEGLOGR",
+      NULLIF("NOM_SEGLOGR", '')::VARCHAR(26) AS "NOM_SEGLOGR",
+      NULLIF("NUM_ENDERECO", '')::BIGINT AS "NUM_ENDERECO",
+      NULLIF("DSC_MODIFICADOR", '')::VARCHAR(102) AS "DSC_MODIFICADOR",
+      NULLIF("NOM_COMP_ELEM1", '')::VARCHAR(102) AS "NOM_COMP_ELEM1",
+      NULLIF("VAL_COMP_ELEM1", '')::VARCHAR(16) AS "VAL_COMP_ELEM1",
+      NULLIF("NOM_COMP_ELEM2", '')::VARCHAR(16) AS "NOM_COMP_ELEM2",
+      NULLIF("VAL_COMP_ELEM2", '')::VARCHAR(12) AS "VAL_COMP_ELEM2",
+      NULLIF("NOM_COMP_ELEM3", '')::VARCHAR(16) AS "NOM_COMP_ELEM3",
+      NULLIF("VAL_COMP_ELEM3", '')::VARCHAR(12) AS "VAL_COMP_ELEM3",
+      NULLIF("NOM_COMP_ELEM4", '')::VARCHAR(16) AS "NOM_COMP_ELEM4",
+      NULLIF("VAL_COMP_ELEM4", '')::VARCHAR(12) AS "VAL_COMP_ELEM4",
+      NULLIF("NOM_COMP_ELEM5", '')::VARCHAR(16) AS "NOM_COMP_ELEM5",
+      NULLIF("VAL_COMP_ELEM5", '')::VARCHAR(12) AS "VAL_COMP_ELEM5",
+      NULLIF("LATITUDE", '')::DECIMAL(8, 6) AS "LATITUDE",
+      NULLIF("LONGITUDE", '')::DECIMAL(8, 6) AS "LONGITUDE",
+      NULLIF("NV_GEO_COORD", '')::SMALLINT AS "NV_GEO_COORD",
+      NULLIF("COD_ESPECIE", '')::SMALLINT AS "COD_ESPECIE",
+      NULLIF("DSC_ESTABELECIMENTO", '')::VARCHAR(100) AS "DSC_ESTABELECIMENTO",
+      NULLIF("COD_INDICADOR_ESTAB_ENDERECO", '')::SMALLINT AS "COD_INDICADOR_ESTAB_ENDERECO",
+      NULLIF("COD_INDICADOR_CONST_ENDERECO", '')::SMALLINT AS "COD_INDICADOR_CONST_ENDERECO",
+      NULLIF("COD_INDICADOR_FINALIDADE_CONST", '')::SMALLINT AS "COD_INDICADOR_FINALIDADE_CONST",
+      NULLIF("COD_TIPO_ESPECI", '')::SMALLINT AS "COD_TIPO_ESPECI"
+   FROM public.dadoscrus;
+
+15. Pontos de endereços: Criar um campo para ser a Primary Key, e preenchê-lo
+
+ALTER TABLE public.dados_tipos_corrigidos ADD COLUMN id SERIAL; 
+UPDATE public.dados_tipos_corrigidos SET id = DEFAULT;
+ALTER TABLE public.dados_tipos_corrigidos ADD CONSTRAINT dados_tipos_corrigidos_pkey PRIMARY KEY (id);
+
+
+16. Pontos de endereços: Identificação do que contém em cada campo
+
+a. COD_UNICO_ENDERECO | Código único do endereço
+   * Contem linhas com valores repetidos. CONFIRMAR afirmação: Logradouro + número é único, porém tem variação nos complementos.
+b. COD_UF | Código da UF
+   * Contem 2 dígitos que representam o geocódigo do Estado. Facilita o recorte de áreas para importar.
+c. COD_MUNICIPIO | Código do município
+   * Contem 7 dígitos que representam o geocódigo do Município. Facilita o recorte de áreas para importar.
+d. COD_DISTRITO | Código do distrito
+   * Contem 9 dígitos que representam o geocódigo do Distrito. Facilita o recorte de áreas para importar.
+e. COD_SUBDISTRITO | Código do subdistrito
+   * Contem 11 dígitos que representam o geocódigo do Subdistrito. Facilita o recorte de áreas para importar.
+f. COD_SETOR | Código do setor
+   * Contem 15 dígitos, sendo que o último digito é um 'P' que representam o geocódigo do Subdistrito. Facilita o recorte de áreas para importar.
+g. NUM_QUADRA | Número da quadra
+   * Cada registro representa uma espécie existente no endereço.
+   * Numero identificador da quadra no setor
+h. NUM_FACE | Número da face
+   * Numero identificador da face da quadra. Cada face de uma quadra dá para uma rua
+I. CEP | Código de Endereçamento Postal
+   * Equivalente a addr:postcode=*, bem como postal_code=* em geometrias de ruas
+   * Todos os CEPs com 8 digitos
+j. DSC_LOCALIDADE | Localidade
+   * Nome da localidade. Equivalente a place=*
+k. NOM_TIPO_SEGLOGR | Tipo do logradouro
+   * Tipo de logradouro. Compõe a 1a parte do nome do logradouro. Equivalente a parte de addr:street=* ou parte de addr:place
+   * Valores existentes: 10A TRAVESSA, 11A TRAVESSA, 12A TRAVESSA, 13A TRAVESSA, 14A TRAVESSA, 15A TRAVESSA, 16A TRAVESSA, 17A TRAVESSA, 18A TRAVESSA, 1A AVENIDA, 1A PARALELA, 1A RUA, 1A SUBIDA, 1A TRAVESSA, 1A TRAVESSA DA AVENIDA, 1A TRAVESSA DA RODOVIA, 1A TRAVESSA DA RUA, 1A VILA, 1O BECO, 20A TRAVESSA, 2A AVENIDA, 2A PARALELA, 2A RUA, 2A SUBIDA, 2A TRAVESSA, 2A TRAVESSA DA AVENIDA, 2A TRAVESSA DA RODOVIA, 2A TRAVESSA DA RUA, 2O BECO, 3A AVENIDA, 3A RUA, 3A TRAVESSA, 3A TRAVESSA DA AVENIDA, 3A TRAVESSA DA RUA, 3O BECO, 4A AVENIDA, 4A RUA, 4A SUBIDA, 4A TRAVESSA, 4A TRAVESSA DA AVENIDA, 4A TRAVESSA DA RUA, 4O BECO, 5A AVENIDA, 5A RUA, 5A TRAVESSA, 5A TRAVESSA DA AVENIDA, 5A TRAVESSA DA RUA, 5O BECO, 6A AVENIDA, 6A RUA, 6A TRAVESSA, 7A TRAVESSA, 8A RUA, 8A TRAVESSA, 9A TRAVESSA, ACAMPAMENTO, ACESSO, ACESSO LOCAL, ACUDE, ADRO, AEROPORTO, AFLUENTE, AGLOMERADO, AGROVILA, ALAGADO, ALAMEDA, ALDEIA, ALEIA, ALTO, ANEL, ANEL VIARIO, ANTIGA ESTRADA, AREA, AREAL, AREA VERDE, ARRAIAL, ARROIO, ARTERIA, ASSENTAMENTO, ATALHO, ATERRO, AUTODROMO, AVENIDA, AVENIDA CONTORNO, AVENIDA MARGINAL, AVENIDA PERIMETRAL, BAIA, BAIRRO, BAIXA, BAIXADA, BAIXADAO, BAIXAO, BAIXO, BALAO, BALNEARIO, BARRA, BARRAGEM, BARRANCA, BARRANCO, BARREIRO, BARRO, BECO, BEIRA, BEIRADA, BLOCO, BOCAINA, BOQUEIRAO, BOSQUE, BOULEVARD, BREJO, BULEVAR, BURACO, CABECEIRA, CACHOEIRA, CACHOEIRINHA, CAIS, CALCADA, CALCADAO, CAMINHO, CAMPO, CANAL, CANTEIRO, CAPAO, CAPOEIRA, CENTRAL, CENTRO, CERCA, CERRADO, CERRO, CHACARA, CHAPADA, CHAPADAO, CHARCO, CICLOVIA, CIRCULAR, COHAB, COLINA, COLONIA, COMUNIDADE, CONDOMINIO, CONDOMINIO RESIDENCIAL, CONJUNTO, CONJUNTO HABITACIONAL, CONJUNTO RESIDENCIAL, CONTINUACAO, CONTORNO, CORREDOR, CORREGO, COSTA, COXILHA, CRUZAMENTO, DESCIDA, DESVIO, DIQUE, DISTRITO, DIVISA, DIVISAO, DIVISOR, EDF, EDIFICIO, EIXO, ELEVADO, ENCOSTA, ENGENHO, ENSEADA, ENTRADA, ENTRADA PARTICULAR, ENTREPOSTO, ENTRONCAMENTO, ESCADA, ESCADAO, ESCADARIA, ESCADINHA, ESPIGAO, ESPLANADA, ESQUINA, ESTACAO, ESTACIONAMENTO, ESTADIO, ESTANCIA, ESTRADA, ESTRADA ANTIGA, ESTRADA DE FERRO, ESTRADA DE LIGACAO, ESTRADA DE SERVIDAO, ESTRADA ESTADUAL, ESTRADA INTERMUNICIPAL, ESTRADA MUNICIPAL, ESTRADA NOVA, ESTRADA PARTICULAR, ESTRADA VELHA, ESTRADA VICINAL, EXTENSAO, FAIXA, FAVELA, FAZENDA, FEIRA, FERROVIA, FINAL, FLORESTA, FOLHA, FONTE, FORTALEZA, FORTE, FREGUESIA, FUNDOS, FURO, GALERIA, GAMELEIRA, GARIMPO, GLEBA, GRANJA, GROTA, HABITACIONAL, HARAS, HIPODROMO, HORTO, IGARAPE, ILHA, INVASAO, JARDIM, JARDINETE, LADEIRA, LADO, LAGO, LAGOA, LAGOINHA, LAMEIRA, LARGO, LATERAL, LEITO, LIGACAO, LIMEIRA, LIMITE, LIMITES, LINHA, LOTE, LOTEAMENTO, LUGAREJO, MALOCA, MANANCIAL, MANGUE, MARGEM, MARGENS, MARGINAL, MARINA, MATA, MATO, MODULO, MONTE, MORRO, MURO, NUCLEO, NUCLEO RURAL, OCA, OLEODUTO, OLHO, OLHOS, ORLA, OUTROS, PACO, PALAFITA, PANTANO, PARADA, PARADOURO, PARALELA, PARQUE, PARQUE MUNICIPAL, PARQUE RESIDENCIAL, PARTICULAR, PASSAGEM, PASSAGEM DE PEDESTRES, PASSARELA, PASSEIO, PASSO, PASTO, PATIO, PAVILHAO, PEDRA, PEDRAS, PEDREIRA, PENHASCO, PERIMETRAL, PERIMETRO, PLANALTO, PLATAFORMA, PONTA, PONTE, PONTO, PORTO, POSTO, POVOADO, PRACA, PRAIA, PROJECAO, PROJETADA, PROJETO, PROLONGAMENTO, PROPRIEDADE, QUADRA, QUARTEIRAO, QUILOMBO, QUILOMETRO, QUINTA, QUINTAS, RAMAL, RAMPA, RANCHO, RECANTO, REGIAO, REPRESA, RESIDENCIAL, RETA, RETIRO, RETORNO, RIACHAO, RIACHO, RIBANCEIRA, RIBEIRAO, RINCAO, RIO, ROCHA, ROCHEDO, RODO ANEL, RODOVIA, ROTATORIA, ROTULA, RUA, RUA DE LIGACAO, RUA DE PEDESTRE, RUA PARTICULAR, RUA PRINCIPAL, RUA PROJETADA, RUELA, SACO, SAIDA, SANGA, SEDE, SERINGAL, SERRA, SERTAO, SERVIDAO, SERVIDAO DE PASSAGEM, SETA, SETOR, SITIO, SOPE, SUBIDA, SUPERQUADRA, TAPERA, TERMINAL, TERRA, TERRENO, TERRENOS, TRANSVERSAL, TRAVESSA, TRAVESSAO, TRAVESSA PARTICULAR, TRAVESSIA, TRECHO, TREVO, TRILHA, TRILHO, TRILHOS, TRINCHEIRA, TUNEL, UNIDADE, USINA, VALA, VALAO, VALE, VARGEM, VARIANTE, VARZEA, VEREDA, VERTENTE, VIA, VIA COLETORA, VIA DE ACESSO, VIA DE PEDESTRE, VIA DE PEDESTRES, VIADUTO, VIA EXPRESSA, VIA MARGINAL, VICINAL, VIELA, VILA, VILAREJO, VOLTA, ZONA
+l. NOM_TITULO_SEGLOGR | Título do logradouro
+   * Título do nome do logradouro. Compõe a 2a parte do nome do logradouro. Alguns logradouros possuem. Equivalente a parte de addr:street=*
+m. NOM_SEGLOGR | Nome do logradouro
+   * Parte do nome principal do logradouro. Compõe a 3a parte do nome do logradouro. Equivalente a parte de addr:street=*
+n. NUM_ENDERECO | Número no logradouro
+   * É o número que compoe o endereço. Equivalente a addr:housenumber
+o. DSC_MODIFICADOR | Modificador do número
+   * Parece ser complemento
+   * Valores comuns: SN, SMS, FNS, KM, SUCAM, FUNASA, Números, letras, definição (apartamento, andar, nome do condomínio, térreo, sobrado, fundos, etc), órgão que atribuiu o número ao endereço (neste último caso, sugestão de tag addr:housenumber:operator=*). SN implica nohousenumber=yes
+   * Poderia ser importado como "addr:complement"=*. Existe alguns usos, porém chave não é formalizada. Ficaria no OSM para ser melhor definida caso a caso
+p. NOM_COMP_ELEM1 | Complemento: Elemento 1
+   * Nome da chave em NOM_COMP_ELEM1 = VAL_COMP_ELEM1
+   * 71 nomes de chaves encontrados em ordem decrescente de ocorrências: CASA, APARTAMENTO, BLOCO, QUADRA, FUNDOS, FRENTE, TERREO, SOBRADO, ANDAR, LOTE, LOJA, LADO, QUITINETE, CHACARA, EDIFICIO, SITIO, TORRE, SALA, FAZENDA, PREDIO, BARRACAO, ANEXO, CONJUNTO, ENTRADA, SEDE, RUA INTERNA, GARAGEM, SUBSOLO, SOBRELOJA, DEPOSITO, PORAO, QUARTO, BOX, COMODO, PORTAO, ARMAZEM, BARRACA, COBERTURA, ALAMEDA INTERNA, TRAVESSA INTERNA, CHALE, HABITACAO, ALA, PAVIMENTO, CAIS, AVENIDA INTERNA, GRUPO, PAVILHAO, CONDOMINIO, OUTROS, MODULO, PORTA, ESTANCIA, GALERIA, DEPENDENCIA, GRANJA, BANCA, LAJE, GLEBA, MANSAO, PECA, SUITE, CABINE, RESIDENCIAL, QUINTA, HANGAR, SALAO, VILA, GUICHE, PORTARIA, PALAFITA
+q. VAL_COMP_ELEM1 | Complemento: Valor 1
+   * Valores possíveis na tag NOM_COMP_ELEM1 = VAL_COMP_ELEM1
+   * Valores comuns: Alfanuméricos e descritivos
+r. NOM_COMP_ELEM2 | Complemento: Elemento 2
+   * Nome da chave em NOM_COMP_ELEM2 = VAL_COMP_ELEM2
+   * 70 nomes de chaves encontrados em ordem decrescente de ocorrências: APARTAMENTO, LOTE, CASA, FUNDOS, ANDAR, BLOCO, FRENTE, TERREO, QUADRA, SOBRADO, LADO, QUITINETE, LOJA, SALA, ENTRADA, EDIFICIO, CHACARA, TORRE, CONJUNTO, MODULO, SEDE, PREDIO, ALA, RUA INTERNA, SITIO, QUARTO, SUBSOLO, FAZENDA, PORTAO, ANEXO, PORTA, BARRACAO, COBERTURA, SOBRELOJA, GRUPO, PAVIMENTO, GARAGEM, COMODO, BOX, PORAO, TRAVESSA INTERNA, DEPOSITO, GLEBA, ARMAZEM, ALAMEDA INTERNA, CHALE, BARRACA, HABITACAO, AVENIDA INTERNA, OUTROS, DEPENDENCIA, LAJE, CAIS, ESTANCIA, GALERIA, SUITE, PAVILHAO, MANSAO, GRANJA, PECA, BANCA, QUINTA, CABINE, HANGAR, SALAO, RESIDENCIAL, VILA, GUICHE, CONDOMINIO, PALAFITA
+s. VAL_COMP_ELEM2 | Complemento: Valor 2
+   * Valores possíveis na tag NOM_COMP_ELEM2 = VAL_COMP_ELEM2
+   * Valores comuns: Alfanuméricos e descritivos
+t. NOM_COMP_ELEM3 | Complemento: Elemento 3
+   * Nome da chave em NOM_COMP_ELEM3 = VAL_COMP_ELEM3
+   * 69 nomes de chaves encontrados em ordem decrescente de ocorrências: APARTAMENTO, CASA, LOTE, FUNDOS, BLOCO, FRENTE, TERREO, ANDAR, SOBRADO, LOJA, LADO, SALA, QUITINETE, QUADRA, BARRACAO, ENTRADA, EDIFICIO, RUA INTERNA, TORRE, PORTAO, PREDIO, CONJUNTO, CHACARA, PORTA, ANEXO, ALA, QUARTO, COMODO, SOBRELOJA, SEDE, SUBSOLO, SITIO, COBERTURA, DEPOSITO, BARRACA, GARAGEM, OUTROS, PAVIMENTO, FAZENDA, MODULO, ALAMEDA INTERNA, AVENIDA INTERNA, BOX, ARMAZEM, HABITACAO, TRAVESSA INTERNA, GLEBA, DEPENDENCIA, CHALE, LAJE, PORAO, GRUPO, CAIS, MANSAO, SUITE, GALERIA, PECA, PAVILHAO, ESTANCIA, BANCA, GRANJA, RESIDENCIAL, HANGAR, CABINE, QUINTA, VILA, SALAO, GUICHE, CONDOMINIO
+u. VAL_COMP_ELEM3 | Complemento: Valor 3
+   * Valores possíveis na tag NOM_COMP_ELEM3 = VAL_COMP_ELEM3
+v. NOM_COMP_ELEM4 | Complemento: Elemento 4
+   * Nome da chave em NOM_COMP_ELEM4 = VAL_COMP_ELEM4
+   * 67 nomes de chaves encontrados em ordem decrescente de ocorrências: APARTAMENTO, CASA, FUNDOS, LOTE, ANDAR, FRENTE, TERREO, LADO, SOBRADO, BLOCO, LOJA, QUITINETE, PORTAO, SALA, CONJUNTO, EDIFICIO, RUA INTERNA, QUADRA, ENTRADA, PREDIO, BARRACAO, TORRE, PORTA, CHACARA, GARAGEM, OUTROS, ALA, ANEXO, SOBRELOJA, GRUPO, SITIO, COBERTURA, QUARTO, SEDE, SUBSOLO, DEPOSITO, COMODO, BOX, PAVIMENTO, ALAMEDA INTERNA, BARRACA, TRAVESSA INTERNA, AVENIDA INTERNA, FAZENDA, DEPENDENCIA, ARMAZEM, SUITE, HABITACAO, MODULO, LAJE, GALERIA, CHALE, PORAO, CAIS, GLEBA, GRANJA, PECA, MANSAO, PAVILHAO, CABINE, BANCA, ESTANCIA, HANGAR, QUINTA, GUICHE, SALAO, VILA
+w. VAL_COMP_ELEM4 | Complemento: Valor 4
+   * Valores possíveis na tag NOM_COMP_ELEM4 = VAL_COMP_ELEM4
+x. NOM_COMP_ELEM5 | Complemento: Elemento 5
+   * Nome da chave em NOM_COMP_ELEM5 = VAL_COMP_ELEM5
+   * 61 nomes de chaves encontrados em ordem decrescente de ocorrências: APARTAMENTO, CASA, LOTE, PORTAO, FUNDOS, ENTRADA, TERREO, LOJA, LADO, SOBRADO, FRENTE, SITIO, TORRE, QUITINETE, SALA, ANDAR, GARAGEM, PORTA, BARRACAO, TRAVESSA INTERNA, COBERTURA, BOX, CHACARA, ANEXO, SEDE, QUARTO, PAVIMENTO, PREDIO, COMODO, DEPOSITO, EDIFICIO, SOBRELOJA, CONJUNTO, RUA INTERNA, FAZENDA, DEPENDENCIA, CHALE, HABITACAO, BLOCO, GALERIA, ARMAZEM, QUADRA, SUITE, ALA, MODULO, OUTROS, ALAMEDA INTERNA, BARRACA, SUBSOLO, BANCA, GRANJA, AVENIDA INTERNA, CABINE, CAIS, GRUPO, HANGAR, LAJE, PECA, PORAO, QUINTA, SALAO
+y. VAL_COMP_ELEM5 | Complemento: Valor 5
+   * Valores possíveis na tag NOM_COMP_ELEM5 = VAL_COMP_ELEM5
+z. LATITUDE | Latitude do Endereço
+aa. LONGITUDE | Longitude do Endereço
+ab. NV_GEO_COORD | Nível de geocodificação
+    * Valores possíveis:
+      1 = Endereço - coordenada original do Censo 2022 | 93.5%
+      2 = Endereço - coordenada modificada (apartamentos em um mesmo número no logradouro). O método utilizado para modificação de endereços de apartamentos em um mesmo número de logradouro está apresentado no documento metodológico da publicação. | 5.5%
+      3 = Endereço - coordenada estimada (endereços originalmente sem coordenadas ou coordenadas inválidas). Os critérios de coordenadas inválidas estão apresentados no documento metodológico da publicação. | 0.7%
+      4 = Face de quadra | 0.3%
+      5 = Localidade | 0.009%
+      6 = Setor censitário | 0.01%
+    * Valores >= 4 parecem não ser aconselháveis importar
+
+ac. COD_ESPECIE | Espécie de endereço
+    * Valores possíveis:
+      1 = Domicílio particular | 81.6%
+      2 = Domicílio coletivo | 0.09%
+      3 = Estabelecimento agropecuário | 3.62%
+      4 = Estabelecimento de ensino | 0.24%
+      5 = Estabelecimento de saúde | 0.22% 
+      6 = Estabelecimento de outras finalidades | 10.54%
+      7 = Edificação em construção ou reforma | 3.19%
+      8 = Estabelecimento religioso | 0.52% | amenity = place_of_workship
+
+ad. DSC_ESTABELECIMENTO | Identificação do estabelecimento
+    * Pode ser usado como forma de identificar Pontos de Interesse (POIs): amenity=* | shop=* | office=* | craft=*
+    
+ae. COD_INDICADOR_ESTAB_ENDERECO | Indicador de estabelecimento | NULL values = 84.82%
+    * Valores possíveis:
+      1 = Único | 14.8%
+      2 = Múltiplo, com até 10 estabelecimentos no endereço | 0.23%
+      3 = Múltiplo, com mais de 10 estabelecimentos no endereço | 0.03%
+      4 = Múltiplo, com quantidade de estabelecimentos desconhecida no endereço | 0.12%
+
+af. COD_INDICADOR_CONST_ENDERECO | Indicador de construção ou reforma | NULL values = 96.8%
+    * Valores possíveis:
+      1 = Único | 3.08%
+      2 = Múltiplo, com até 10 unidades no endereço | 0.09%
+      3 = Múltiplo, com mais de 10 unidades no endereço | 0.03%
+      4 = Múltiplo, com quantidade de unidades desconhecida no endereço | 0.01%
+
+ag. COD_INDICADOR_FINALIDADE_CONST | Indicador de finalidade de construção | NULL values = 96.8%
+    * Valores possíveis:
+      1 = Residencial | 2.49%
+      2 = Não residencial | 0.21%
+      3 = Misto | 0.03%
+      4 = Indeterminado | 0.48%
+
+ah. COD_TIPO_ESPECI | Tipo da edificação dos domicílios | NULL values = 18.3%
+    * Valores possíveis:
+      101 = Casa | 66.44%
+      102 = Casa de vila ou em condomínio | 2.20%
+      103 = Apartamento | 12.58%
+      104 = Outros | 0.45%
+
+17. Pontos de endereços: Equivalência entre os tipos de complementos do IBGE com tags do OpenStreetMap
+
+   * Pelo que deduzi da wiki https://wiki.openstreetmap.org/wiki/Key:addr:*:
+      * addr:door=* se refere a um único domicílio.
+      * addr:unit=* se refere a um conjunto de domicílios.
+   * Dificil estabelecer padrões pois existem 11485 diferentes combinações de NOM_COMP_ELEM*
+   
+   * Aparentes correlações:
+          APARTAMENTO: "addr:door"
+          CASA: "addr:unit"
+          FUNDOS: "addr:door"
+          LOTE: "addr:unit"
+          ANDAR: "addr:floor"
+          FRENTE: "addr:door"
+          TERREO: "addr:floor"=0
+          LADO: "addr:unit"
+          SOBRADO: "addr:unit"
+          BLOCO: "addr:unit"
+          LOJA: "addr:door"
+          QUITINETE: "addr:door"
+          PORTAO: "addr:unit"
+          SALA: "addr:door"
+          CONJUNTO: Conjunto de "addr:unit"
+          EDIFICIO: "addr:housename"
+          RUA INTERNA: 
+          QUADRA: "addr:block" ou "addr:block_number", se não estiverem dentro de um mesmo rua-número
+          ENTRADA: "addr:unit"
+          PREDIO: "addr:unit"
+          BARRACAO: "addr:unit"
+          TORRE: "addr:unit"
+          PORTA: "addr:door"
+          CHACARA: "addr:unit"
+          GARAGEM: "addr:door"
+          OUTROS: "addr:unit"
+          ALA: "addr:unit"
+          ANEXO: "addr:unit"
+          SOBRELOJA: "addr:unit"
+          GRUPO: "addr:unit"
+          SITIO: place=farm + name='Sítio '+SITIO     OU    "addr:housename"='Sítio '+SITIO
+          COBERTURA: "addr:unit"
+          QUARTO: "addr:door"
+          SEDE: "addr:unit"
+          SUBSOLO: "addr:unit"
+          DEPOSITO: "addr:door"
+          COMODO: "addr:door"
+          BOX: "addr:door"
+          PAVIMENTO: "addr:floor"
+          ALAMEDA INTERNA: 
+          BARRACA: "addr:unit"
+          TRAVESSA INTERNA: 
+          AVENIDA INTERNA: 
+          FAZENDA: place=farm + name='Fazenda '+FAZENDA     OU    "addr:housename"='Fazenda '+FAZENDA
+          DEPENDENCIA: "addr:unit"
+          ARMAZEM: "addr:unit"
+          SUITE: "addr:door"
+          HABITACAO: "addr:unit"
+          MODULO:  "addr:block" ou "addr:block_number", se não estiverem dentro de um mesmo rua-número
+          LAJE: "addr:unit"
+          GALERIA: "addr:unit"
+          CHALE: "addr:door"
+          PORAO: "addr:door"
+          CAIS: "addr:unit"
+          GLEBA: place=farm + name='Gleba '+GLEBA     OU    "addr:housename"='Gleba '+GLEBA
+          GRANJA: place=farm + name='Granja '+GRANJA     OU    "addr:housename"='Granja '+GRANJA
+          PECA: "addr:door"
+          MANSAO: "addr:unit"
+          PAVILHAO: "addr:unit"
+          CABINE: "addr:door"
+          BANCA: "addr:door"
+          ESTANCIA: place=farm + name='Estância '+ESTANCIA     OU    "addr:housename"='Estância '+ESTANCIA
+          HANGAR: "addr:unit"
+          QUINTA: place=farm + name='Quinta '+QUINTA     OU    "addr:housename"='Quinta '+QUINTA
+          GUICHE: "addr:door"
+          SALAO: "addr:door"
+          VILA: "addr:unit"
+
+18. Pontos de endereços: Dados úteis no OpenStreetMap
+    * Numeração predial
+    * Nomes de prédios
+    * Nomes de ruas públicas
+    * Nomes de ruas internas a condomínio
+    * Nomes de chácaras, sítios, quintas, fazendas, estâncias
+    * Nomes e números de quadras
+    * Códigos de Endereçamento Postal (CEPs)
+    * Nomes de lugares
+    * Lista de apartamentos de cada prédio ou conjunto de prédios
+    * Pontos de interesse. Poucos com nome.
+    
+    
+    
+
+19. Pontos de endereços: Gerar tabela com os valores de DSC_ESTABELECIMENTO encontrados. Muitos são repetidos o que facilita a identificação de Pontos de Interesse (POIs), ou pelo menos o tipo de POI. Precisa uma checagem manual de quais tags poderia ser adicionadas em cada caso.
+DROP TABLE IF EXISTS public.tipos_de_pontos_de_interesse;
+CREATE TABLE public.tipos_de_pontos_de_interesse AS
+   SELECT DISTINCT "DSC_ESTABELECIMENTO", count("DSC_ESTABELECIMENTO") as ocorrencias
+      FROM public.dadoscrus
+      GROUP by "DSC_ESTABELECIMENTO"
+      ORDER by ocorrencias DESC;
+
+20. Pontos de endereços: Montagem de dicionários de palavras a serem substituidas, principalmente para correção de falta de acentuação
+  https://portilexicon.icmc.usp.br/ - CC-BY 4.0 | contatar https://www.linkedin.com/in/lucasgmm/
+  
+  Uma forma de tentar contornar isso é montar um dicionário de palavras com a própria base de dados do OSM no Brasil.
+  Feito isso foi checada de forma manual todas as palavras com mais de 1 ocorrência, e deletada as que estavam acentuadas de forma incorreta. As palavras com apenas 1 ocorrência também foram exclídas pois (1) são muitas palavras (quase a metade da lista), a maioria erradas ou de difícil checacagem, mesmo que correta, vale mais a pena checar ao importar já no mapa.
+  Algumas situações podem levar a substituição por palavra acentuada de forma incorreta, porém aqui a ideia é minimizar os trabalhos de correções.
+  Essa tabela só corrige acentuação e não a palavra, caso tenha letras a mais ou a menos.
+  
+  -- Rodar no banco de dados onde tem os nomes das ruas
+  CREATE EXTENSION IF NOT EXISTS unaccent;
+  DROP TABLE IF EXISTS public.palavras_para_substituir;
+  CREATE TABLE public.palavras_para_substituir AS
+  SELECT unaccent(word) AS substituir_de, word AS substituir_para, ocorrencias_no_osm
+  FROM (
+     SELECT DISTINCT unnest(string_to_array("name", ' ')) AS word, count(*) AS ocorrencias_no_osm
+     FROM public.osm_highways
+     GROUP BY word
+  ) AS words
+  WHERE word ~ '[áàâãäéèêëíìîïóòôõöúùûüçÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ]'
+  ORDER BY ocorrencias_no_osm DESC;
+  
+  -- Importar tabela palavras_para_substituir para o banco de dados ibge_censo2022_addr_coord
+  CREATE EXTENSION IF NOT EXISTS dblink;
+  DROP TABLE IF EXISTS public.palavras_para_substituir;
+  CREATE TABLE public.palavras_para_substituir AS
+    SELECT substituir_de, substituir_para, ocorrencias_no_osm
+    FROM   dblink('dbname=brazil_20240510t202104z',
+	              'SELECT substituir_de, substituir_para, ocorrencias_no_osm FROM public.palavras_para_substituir;')
+    AS     bd_fonte(substituir_de TEXT, substituir_para TEXT, ocorrencias_no_osm BIGINT);
+
+  -- Indíces
+  DROP INDEX IF EXISTS idx_palavras_substituir_de; CREATE INDEX idx_palavras_substituir_de ON public.palavras_para_substituir(substituir_de);
+  DROP INDEX IF EXISTS idx_palavras_substituir_para; CREATE INDEX idx_palavras_substituir_para ON public.palavras_para_substituir(substituir_para);
+    
+    
+    
+    
+    
+    
+21. Pontos de endereços: Criar funções e procedimentos
+
+CREATE EXTENSION IF NOT EXISTS plpython3u;
+
+
+-- Obtem número do prédio, KM de rodovia, e quem determinou o número do prédio
+DROP FUNCTION IF EXISTS public.extrair_numero_predial(BIGINT, TEXT, TEXT);
+CREATE OR REPLACE FUNCTION public.extrair_numero_predial(numero BIGINT, modificador_numero TEXT, chave_a_extrair TEXT)
+RETURNS TEXT
+LANGUAGE plpython3u
+AS $$
+
+  if chave_a_extrair == 'addr:housenumber':
+    if numero > 0 and numero < 99999: # ignora números maiores ou iguais a 100 mil
+      if 'KM' not in str(modificador_numero) or numero >= 1000: # Se numero > 1000, certeza ser housenumber e não milestone
+        return str(numero)
+      else:
+        return None
+    else:
+        return None
+
+  if chave_a_extrair == 'addr:milestone':
+    #if 'KM' in str(modificador_numero) and 
+    if 'KM' in str(modificador_numero) and numero < 1000: # Se numero > 1000, certeza ser housenumber e não milestone
+      return str(numero)
+
+  operadora_do_numero = [
+                                 'SUCAM', 'SMS', 'FUNASA', 'SUS', 'COELBA', 'IBGE', 'ENERGISA', 'RGE', 'COSERN', 'CELG',
+                                 'CELPE', 'EDAM', 'ENERGIA', 'EMBASA', 'CELTINS', 'CHESP', 'COMPESA', 'SAAE', 'CEPISA', 
+                                 'EQUATORIAL', 'SMSA', 'ENEL', 'CRELUZ', 'CEMAT', 'INCRA', 'CEEE', 'ENERGIS', 'A COELBA',
+                                 'COPEL', 'SESAI', 'RGE SUL', 'CAGECE', 'CELPA', 'COELCE', 'SULGIPE', 'B COELBA', 'SUCAN', 
+                                 'CELESC', 'SEMSA', 'PEVA', 'CEAL', 'CEMIG', 'CEAM', 'DMAE', 'CAERN', 'SMSM', 'SEMS', 'CERFOX',
+                                 'ELETROPAULO', 'AES SUL', 'ENEGISA', 'RGESUL', 'ELETROBRAS', 'EQUATORIAL ENERGIA', 'CEE', 'PMSS',
+                                 'AESSUL', 'CONTADOR', 'CERTEL', 'CAIXA DE ENERGIA', 'COELBA A', 'SAESI', 'CELP', 'NEOENERGIA', 
+                                 'SMSC', 'CAIXA DE LUZ', 'ELETROB', 'SAELPA', 'ELEKTRO', 'PADRAO ENERGISA', 'RELOGIO DE ENERGIA',
+                                 'POSTE COELBA', 'CEMAR', 'COPEL MED', 'COELBA MOD A', 'SESAB', 'CORREIO', 'CORREIOS', 'BPMRURAL',
+                                 'RELOGIO DE LUZ', 'A COELB', 'ACOELBA', 'POSTE DA COELBA', 'COPASA', 'MEDIDOR DE ENERGIA',
+                                 'PADRAO ENERGIA', 'CAGEPA', 'CERTHIL', 'MEDIDOR', 'PADRAO COELBA', 'ENDEMIAS', 'CAEMA',
+                                 'MEDIDOR DO RELOGIO', 'PADRAO DE LUZ', 'CORSAN', 'SISAR', 'COSERN', 'POSTE DE ENERGIA',
+                                 'SANASA', 'AMAZONAS ENERGIA', 'AESUL', 'COPEL MEDIDOR', 'PATRULHA RURAL', 'CT ENERGISA', 
+                                 'BCOELBA', 'CENF', 'DAESC', 'ENERGISA PB', 'SESACRE', 'COPREL', 'CAIXA CORREIO', 'CX CORREIO'
+                             ]
+
+  if chave_a_extrair == 'addr:housenumber:operator':
+    if modificador_numero != None:
+      if modificador_numero in operadora_do_numero:
+        return modificador_numero
+
+
+  if chave_a_extrair == 'addr:alt_housenumber':
+    if modificador_numero != None:
+      for opnum in operadora_do_numero:
+        if opnum in modificador_numero.split(' ') and opnum != modificador_numero and modificador_numero not in operadora_do_numero:
+                plpy.info('opnum = '+str(opnum)+' | modificador_numero = '+str(modificador_numero))
+                return modificador_numero
+
+  return None
+$$;
+
+-- Determina se addr:place ou addr:street deve ser usado
+DROP FUNCTION IF EXISTS public.determinar_place_ou_street(TEXT,TEXT,TEXT);
+CREATE OR REPLACE FUNCTION public.determinar_place_ou_street(tipo_de_logradouro TEXT, nome_completo_logradouro TEXT, chave_a_extrair TEXT)
+RETURNS TEXT
+LANGUAGE plpython3u
+AS $$
+
+  tipo_logradouro_street = [
+                              '10A TRAVESSA', '11A TRAVESSA', '12A TRAVESSA', '13A TRAVESSA', '14A TRAVESSA', '15A TRAVESSA',
+                              '16A TRAVESSA', '17A TRAVESSA', '18A TRAVESSA', '1A AVENIDA', '1A PARALELA', '1A RUA', '1A SUBIDA', 
+                              '1A TRAVESSA', '1A TRAVESSA DA AVENIDA', '1A TRAVESSA DA RODOVIA', '1A TRAVESSA DA RUA', '1A VILA',
+                              '1O BECO', '20A TRAVESSA', '2A AVENIDA', '2A PARALELA', '2A RUA', '2A SUBIDA', '2A TRAVESSA', 
+                              '2A TRAVESSA DA AVENIDA', '2A TRAVESSA DA RODOVIA', '2A TRAVESSA DA RUA', '2O BECO', '3A AVENIDA',
+                              '3A RUA', '3A TRAVESSA', '3A TRAVESSA DA AVENIDA', '3A TRAVESSA DA RUA', '3O BECO', '4A AVENIDA', 
+                              '4A RUA', '4A SUBIDA', '4A TRAVESSA', '4A TRAVESSA DA AVENIDA', '4A TRAVESSA DA RUA', '4O BECO', 
+                              '5A AVENIDA', '5A RUA', '5A TRAVESSA', '5A TRAVESSA DA AVENIDA', '5A TRAVESSA DA RUA', '5O BECO', 
+                              '6A AVENIDA', '6A RUA', '6A TRAVESSA', '7A TRAVESSA', '8A RUA', '8A TRAVESSA', '9A TRAVESSA', 'ACESSO',
+                              'ACESSO LOCAL', 'ALAMEDA', 'ANEL', 'ANEL VIARIO', 'ANTIGA ESTRADA', 'ARTERIA', 'ATALHO', 'AVENIDA', 
+                              'AVENIDA CONTORNO', 'AVENIDA MARGINAL', 'AVENIDA PERIMETRAL', 'BALAO', 'BECO', 'BEIRA', 'BEIRADA', 
+                              'BOULEVARD', 'BULEVAR', 'CALCADA', 'CALCADAO', 'CAMINHO', 'CANTEIRO', 'CICLOVIA', 'CIRCULAR', 
+                              'CONTINUACAO', 'CONTORNO', 'CORREDOR', 'CRUZAMENTO', 'DESCIDA', 'DESVIO', 'EIXO', 'ELEVADO', 'ENTRADA', 
+                              'ENTRADA PARTICULAR', 'ENTRONCAMENTO', 'ESCADA', 'ESCADAO', 'ESCADARIA', 'ESCADINHA', 'ESQUINA', 
+                              'ESTACIONAMENTO', 'ESTRADA', 'ESTRADA ANTIGA', 'ESTRADA DE FERRO', 'ESTRADA DE LIGACAO', 
+                              'ESTRADA DE SERVIDAO', 'ESTRADA ESTADUAL', 'ESTRADA INTERMUNICIPAL', 'ESTRADA MUNICIPAL', 
+                              'ESTRADA NOVA', 'ESTRADA PARTICULAR', 'ESTRADA VELHA', 'ESTRADA VICINAL', 'EXTENSAO', 'FAIXA',
+                              'FERROVIA', 'GALERIA', 'JARDINETE', 'LADEIRA', 'LARGO', 'LATERAL', 'MARGINAL', 'PARALELA', 
+                              'PARTICULAR', 'PASSAGEM', 'PASSAGEM DE PEDESTRES', 'PASSARELA', 'PASSEIO', 'PRACA', 'PROJECAO',
+                              'PROJETADA', 'PROLONGAMENTO', 'RAMAL', 'RAMPA', 'RETORNO', 'RODO ANEL', 'RODOVIA', 'ROTATORIA', 
+                              'ROTULA', 'RUA', 'RUA DE LIGACAO', 'RUA DE PEDESTRE', 'RUA PARTICULAR', 'RUA PRINCIPAL', 
+                              'RUA PROJETADA', 'RUELA', 'SAIDA', 'SERVIDAO', 'SERVIDAO DE PASSAGEM', 'SUBIDA', 'TRANSVERSAL', 
+                              'TRAVESSA', 'TRAVESSAO', 'TRAVESSA PARTICULAR', 'TRAVESSIA', 'TRECHO', 'TRILHA', 'TRILHO', 
+                              'TRILHOS', 'TRINCHEIRA', 'TUNEL', 'VIA', 'VIA COLETORA', 'VIA DE ACESSO', 'VIA DE PEDESTRE', 
+                              'VIA DE PEDESTRES', 'VIADUTO', 'VIA EXPRESSA', 'VIA MARGINAL', 'VICINAL', 'VIELA', 'VOLTA'
+                           ]
+  tipo_logradouro_place  = [
+                              'ACAMPAMENTO', 'ACUDE', 'ADRO', 'AEROPORTO', 'AFLUENTE', 'AGLOMERADO', 'AGROVILA', 'ALAGADO', 
+                              'ALDEIA', 'ALEIA', 'ALTO', 'AREA', 'AREAL', 'AREA VERDE', 'ARRAIAL', 'ARROIO', 'ASSENTAMENTO', 
+                              'ATERRO', 'AUTODROMO', 'BAIA', 'BAIRRO', 'BAIXA', 'BAIXADA', 'BAIXADAO', 'BAIXAO', 'BAIXO', 
+                              'BALNEARIO', 'BARRA', 'BARRAGEM', 'BARRANCA', 'BARRANCO', 'BARREIRO', 'BARRO', 'BOCAINA', 
+                              'BOQUEIRAO', 'BOSQUE', 'BREJO', 'BURACO', 'CABECEIRA', 'CACHOEIRA', 'CACHOEIRINHA', 'CAIS', 
+                              'CAMPO', 'CANAL', 'CAPAO', 'CAPOEIRA', 'CENTRAL', 'CENTRO', 'CERCA', 'CERRADO', 'CERRO', 'CHACARA',
+                              'CHAPADA', 'CHAPADAO', 'CHARCO', 'COHAB', 'COLINA', 'COLONIA', 'COMUNIDADE', 'CONDOMINIO', 
+                              'CONDOMINIO RESIDENCIAL', 'CONJUNTO', 'CONJUNTO HABITACIONAL', 'CONJUNTO RESIDENCIAL', 'CORREGO', 
+                              'COSTA', 'COXILHA', 'DIQUE', 'DISTRITO', 'DIVISA', 'DIVISAO', 'DIVISOR', 'EDIFICIO', 'ENCOSTA', 
+                              'ENGENHO', 'ENSEADA', 'ENTREPOSTO', 'ESPIGAO', 'ESPLANADA', 'ESTACAO', 'ESTADIO', 'ESTANCIA', 
+                              'FAVELA', 'FAZENDA', 'FEIRA', 'FINAL', 'FONTE', 'FORTALEZA', 'FORTE', 'FREGUESIA', 'FUNDOS', 'FURO',
+                              'GAMELEIRA', 'GARIMPO', 'GLEBA', 'GRANJA', 'GROTA', 'HABITACIONAL', 'HARAS', 'HIPODROMO', 'HORTO',
+                              'IGARAPE', 'ILHA', 'INVASAO', 'JARDIM', 'LADO', 'LAGO', 'LAGOA', 'LAGOINHA', 'LAMEIRA', 'LEITO',
+                              'LIGACAO', 'LIMEIRA', 'LIMITE', 'LIMITES', 'LINHA', 'LOTE', 'LOTEAMENTO', 'LUGAREJO', 'MALOCA', 
+                              'MANANCIAL', 'MANGUE', 'MARGEM', 'MARGENS', 'MARINA', 'MATA', 'MATO', 'MODULO', 'MONTE', 'MORRO', 
+                              'MURO', 'NUCLEO', 'NUCLEO RURAL', 'OCA', 'OLEODUTO', 'OLHO', 'OLHOS', 'ORLA', 'OUTROS', 'PACO', 
+                              'PALAFITA', 'PANTANO', 'PARADA', 'PARADOURO', 'PARQUE', 'PARQUE MUNICIPAL', 'PARQUE RESIDENCIAL', 
+                              'PASSO', 'PASTO', 'PATIO', 'PAVILHAO', 'PEDRA', 'PEDRAS', 'PEDREIRA', 'PENHASCO', 'PERIMETRAL', 
+                              'PERIMETRO', 'PLANALTO', 'PLATAFORMA', 'PONTA', 'PONTE', 'PONTO', 'PORTO', 'POSTO', 'POVOADO', 
+                              'PRAIA', 'PROJETO', 'PROPRIEDADE', 'QUARTEIRAO', 'QUILOMBO', 'QUILOMETRO', 'QUINTA', 'QUINTAS', 
+                              'RANCHO', 'RECANTO', 'REGIAO', 'REPRESA', 'RESIDENCIAL', 'RETA', 'RETIRO', 'RIACHAO', 'RIACHO', 
+                              'RIBANCEIRA', 'RIBEIRAO', 'RINCAO', 'RIO', 'ROCHA', 'ROCHEDO', 'SACO', 'SANGA', 'SEDE', 'SERINGAL', 
+                              'SERRA', 'SERTAO', 'SETA', 'SETOR', 'SITIO', 'SOPE', 'TAPERA', 'TERMINAL', 'TERRA', 'TERRENO', 
+                              'TERRENOS', 'TREVO', 'UNIDADE', 'USINA', 'VALA', 'VALAO', 'VALE', 'VARGEM', 'VARIANTE', 'VARZEA',
+                              'VEREDA', 'VERTENTE', 'VILA', 'VILAREJO', 'ZONA',
+                              # Quadras
+                              'BLOCO', 'EDF', 'FOLHA', 'QUADRA', 'SUPERQUADRA'
+                           ]
+  substituir = [
+        # substituições específicas de tipos de logradouros
+        ('10A TRAVESSA', '10ª Travessa'), ('11A TRAVESSA', '11ª Travessa'), ('12A TRAVESSA', '12ª Travessa'), 
+        ('13A TRAVESSA', '13ª Travessa'), ('14A TRAVESSA', '14ª Travessa'), ('15A TRAVESSA', '15ª Travessa'), 
+        ('16A TRAVESSA', '16ª Travessa'), ('17A TRAVESSA', '17ª Travessa'), ('18A TRAVESSA', '18ª Travessa'), 
+        ('1A AVENIDA', '1ª Avenida'), ('1A PARALELA', '1ª Paralela'), ('1A RUA', '1ª Rua'), ('1A SUBIDA', '1ª Subida'), 
+        ('1A TRAVESSA', '1ª Travessa'), ('1A TRAVESSA DA AVENIDA', '1ª Travessa da Avenida'), 
+        ('1A TRAVESSA DA RODOVIA', '1ª Travessa da Rodovia'), ('1A TRAVESSA DA RUA', '1ª Travessa da Rua'), 
+        ('1A VILA', '1ª Vila'), ('1O BECO', '1º Beco'), ('20A TRAVESSA', '20ª Travessa'), ('2A AVENIDA', '2ª Avenida'), 
+        ('2A PARALELA', '2º Paralela'), ('2A RUA', '2ª Rua'), ('2A SUBIDA', '2ª Subida'), ('2A TRAVESSA', '2ª Travessa'), 
+        ('2A TRAVESSA DA AVENIDA', '2ª Travessa da Avenida'), ('2A TRAVESSA DA RODOVIA', '2ª Travessa da Rodovia'), 
+        ('2A TRAVESSA DA RUA', '2ª Travessa da Rua'), ('2O BECO', '2º Beco'), ('3A AVENIDA', '1ª Avenida'), 
+        ('3A RUA', '3ª Rua'), ('3A TRAVESSA', '3ª Travessa'), ('3A TRAVESSA DA AVENIDA', '3ª Travessa da Avenida'), 
+        ('3A TRAVESSA DA RUA', '3ª Travessa da Rua'), ('3O BECO', '3º Beco'), ('4A AVENIDA', '4ª Avenida'), 
+        ('4A RUA', '4ª Rua'), ('4A SUBIDA', '4ª Subida'), ('4A TRAVESSA', '4ª Travessa'), 
+        ('4A TRAVESSA DA AVENIDA', '4ª Travessa da Avenida'), ('4A TRAVESSA DA RUA', '4ª Travessa da Rua'), 
+        ('4O BECO', '4º Beco'), ('5A AVENIDA', '5ª Avenida'), ('5A RUA', '5ª Rua'), ('5A TRAVESSA', '5ª Travessa'), 
+        ('5A TRAVESSA DA AVENIDA', '5ª Travessa da Avenida'), ('5A TRAVESSA DA RUA', '5ª Travessa da Rua'), 
+        ('5O BECO', '5º Beco'), ('6A AVENIDA', '6ª Avenida'), ('6A RUA', '6ª Rua'), ('6A TRAVESSA', '6ª Travessa'), 
+        ('7A TRAVESSA', '7ª Travessa'), ('8A RUA', '8ª Rua'), ('8A TRAVESSA', '8ª Travessa'), ('9A TRAVESSA', '9ª Travessa'), 
+        # tipos a apenas excluir 
+        ('EDF', ''), ('OUTROS', '')
+                 ]
+
+  def substituir_logradouro_tipo(nome_completo_logradouro):
+    for original, corrigido in substituir:
+       if nome_completo_logradouro.startswith(original):
+          return nome_completo_logradouro.replace(original,corrigido)
+    return nome_completo_logradouro
+
+  if chave_a_extrair == 'addr:street':
+    if tipo_de_logradouro in tipo_logradouro_street:
+      return nome_completo_logradouro
+    else:
+      return None
+
+  if chave_a_extrair == 'addr:place':
+    if tipo_de_logradouro in tipo_logradouro_place:
+      return nome_completo_logradouro
+    else:
+      return None
+
+$$;
+
+
+-- Formatar texto de acordo com padrões adotados no OSM
+DROP FUNCTION IF EXISTS public.formatar_texto(TEXT);
+CREATE OR REPLACE FUNCTION public.formatar_texto(texto TEXT)
+RETURNS TEXT
+LANGUAGE plpython3u
+AS $$
+import re
+import psycopg2
+
+def formatar_texto(texto):
+    if texto is None:
+        return None
+
+    # 1. Remover duplo espaços
+    texto = re.sub(r'\s+', ' ', texto).strip()
+
+    # 2. Se nome da rua contiver contiver ref, retorna a ref e para ajuste
+    lista_sufixos_de_ref = [
+          'AAG', 'ABN', 'ABR', 'AC', 'ACD', 'ACP', 'ADD', 'ADF', 'ADM', 'AG', 'AGP', 'AHB', 'AIG', 'AIP', 'AL', 'ALD', 
+          'ALE', 'ALG', 'ALT', 'AM', 'AMB', 'AMG', 'AMJ', 'AMN', 'AMP', 'ANG', 'AP', 'API', 'APS', 'AR', 'ARA', 'ARF', 
+          'ARG', 'ARH', 'ARI', 'ARM', 'ARR', 'ARS', 'ART', 'ARV', 'ASO', 'ASS', 'ATB', 'ATI', 'ATN', 'ATR', 'AUR', 'AVA', 
+          'AVF', 'AVM', 'AVR', 'AXA', 'AZM', 'BA', 'BAC', 'BAI', 'BAS', 'BB', 'BBD', 'BBR', 'BBS', 'BC', 'BCO', 'BFT', 
+          'BGI', 'BGP', 'BIL', 'BJ', 'BLC', 'BOC', 'BOM', 'BR', 'BRA', 'BRB', 'BRC', 'BRE', 'BRI', 'BRN', 'BRO', 'BS', 
+          'BSM', 'BTA', 'BTC', 'BTM', 'BTT', 'BTV', 'BTZ', 'BUR', 'BV', 'CA', 'CAC', 'CAI', 'CAM', 'CBA', 'CBR', 'CBT', 
+          'CBU', 'CC', 'CCO', 'CCQ', 'CD', 'CDL', 'CDM', 'CDR', 'CDS', 'CE', 'CEL', 'CFD', 'CG', 'CGS', 'CHI', 'CHL', 
+          'CHQ', 'CJ', 'CJB', 'CLB', 'CLM', 'CLN', 'CM', 'CMD', 'CMG', 'CMP', 'CMR', 'CMS', 'CNL', 'CNS', 'COR', 'CRD', 
+          'CRI', 'CRZ', 'CS', 'CSL', 'CT', 'CTA', 'CTH', 'CTN', 'CTV', 'CZL', 'DCR', 'DCV', 'DF', 'DGU', 'DIU', 'DPN', 
+          'DRA', 'DRD', 'DSV', 'DT', 'DVL', 'ECH', 'EF', 'EM', 'EMAR', 'EMC', 'EMCA', 'EMG', 'EMS', 'ERM', 'ERS', 'ES', 
+          'ESD', 'ESF', 'ESM', 'ESN', 'ESO', 'ESP', 'ET', 'EW', 'EX', 'EZ', 'FAG', 'FL', 'FLP', 'FM', 'FND', 'FNP', 'FR', 
+          'FRI', 'FRL', 'GAL', 'GAR', 'GC', 'GCI', 'GCR', 'GES', 'GET', 'GI', 'GLI', 'GMB', 'GO', 'GOM', 'GP', 'GPI', 'GRA', 
+          'GRB', 'GRD', 'GRI', 'GRM', 'GRO', 'GRP', 'GS', 'GSV', 'GUA', 'HBR', 'HC', 'HER', 'HK', 'IAC', 'IAN', 'IAT', 'IB', 
+          'IBG', 'IBGE', 'IBM', 'IBN', 'IBR', 'ICM', 'ICR', 'IDT', 'IEP', 'IGP', 'IMA', 'IMB', 'INP', 'IPC', 'IPS', 'IPU', 
+          'IRA', 'IRP', 'IT', 'ITA', 'ITG', 'ITN', 'ITR', 'ITU', 'IVA', 'JAL', 'JAM', 'JAR', 'JAU', 'JBF', 'JC', 'JCR', 'JFA',
+          'JGS', 'JM', 'JQL', 'JRC', 'JRH', 'JTI', 'KD', 'KS', 'LEP', 'LGM', 'LI', 'LIM', 'LIN', 'LM', 'LME', 'LMG', 'LO', 
+          'LOT', 'LTC', 'LVN', 'MA', 'MAM', 'MAP', 'MAR', 'MAS', 'MAT', 'MAZ', 'MBA', 'MBC', 'MBP', 'MC', 'MCL', 'MD', 'MDN', 
+          'MDP', 'ME', 'MEL', 'MEN', 'MG', 'MGC', 'MGD', 'MGG', 'MGP', 'MGS', 'MMR', 'MNA', 'MNO', 'MNT', 'MO', 'MOC', 'MOF', 
+          'MOR', 'MP', 'MPR', 'MQ', 'MR', 'MRC', 'MRE', 'MRP', 'MRQ', 'MS', 'MSL', 'MSS', 'MT', 'MTO', 'MUC', 'NE', 'NEP', 
+          'NER', 'NH', 'NHD', 'NIP', 'NOV', 'NS', 'NUP', 'NV', 'NVA', 'NVG', 'NVH', 'OCA', 'OCB', 'OLE', 'OLP', 'ORL', 'OS', 
+          'OUR', 'OVC', 'PA', 'PAC', 'PAL', 'PAT', 'PB', 'PBA', 'PCT', 'PDB', 'PDD', 'PDM', 'PDN', 'PE', 'PER', 'PFZ', 'PGP', 
+          'PGR', 'PGT', 'PI', 'PIR', 'PIZ', 'PL', 'PLC', 'PLF', 'PLN', 'PLO', 'PLS', 'PMG', 'PMT', 'PNG', 'PNL', 'PNP', 'POL',
+          'POM', 'PON', 'PPM', 'PPT', 'PR', 'PRA', 'PRC', 'PRG', 'PRI', 'PRJ', 'PRM', 'PRP', 'PRR', 'PRS', 'PRT', 'PSA', 
+          'PSB', 'PSE', 'PSP', 'PTG', 'PTL', 'PTP', 'PTR', 'QP', 'QSM', 'QTN', 'RAMO', 'RAS', 'RBB', 'RBC', 'RBN', 'RBS', 
+          'RC', 'RDP', 'RFR', 'RG', 'RGF', 'RGP', 'RGT', 'RHR', 'RIN', 'RIP', 'RJ', 'RM', 'RN', 'RNP', 'RO', 'ROD', 'ROS',
+          'RP', 'RPD', 'RPR', 'RR', 'RS', 'RSC', 'RST', 'SAB', 'SAD', 'SAG', 'SAL', 'SAR', 'SAS', 'SAT', 'SB', 'SBS', 'SC', 
+          'SCA', 'SCD', 'SCT', 'SDV', 'SE', 'SEG', 'SFS', 'SG', 'SID', 'SIEG', 'SIS', 'SJ', 'SJA', 'SJB', 'SJC', 'SJM', 'SJP', 
+          'SJQ', 'SJR', 'SJS', 'SLA', 'SLD', 'SLM', 'SLR', 'SLT', 'SM', 'SMA', 'SMD', 'SMN', 'SMO', 'SMR', 'SMS', 'SO', 'SOE', 
+          'SP', 'SPA', 'SPD', 'SPI', 'SPM', 'SPP', 'SPR', 'SPS', 'SPT', 'SPV', 'SRI', 'SRO', 'SRP', 'SRQ', 'SRV', 'SSG', 
+          'STB', 'STH', 'SVR', 'SWO', 'TA', 'TAB', 'TAM', 'TAR', 'TAU', 'TAV', 'TBG', 'TBO', 'TBS', 'TDS', 'TER', 'TF', 
+          'TFR', 'TGI', 'TH', 'TIT', 'TMO', 'TNB', 'TO', 'TOT', 'TP', 'TPA', 'TPR', 'TQ', 'TR', 'TRB', 'TUB', 'TUP', 'TUR', 
+          'TVO', 'UBA', 'UC', 'UCH', 'UNI', 'UR', 'URA', 'URB', 'URP', 'URU', 'VC', 'VCR', 'VDR', 'VGA', 'VGS', 'VLG', 
+          'VM', 'VP', 'VPE', 'VPS', 'VRD', 'VRG', 'VRS', 'VS', 'VSP', 'VTG', 'XRE', 'ZCR'
+                           ]
+    def eh_numero(value):
+      try:
+        int(value)
+        return True
+      except ValueError:
+        return False
+
+    palavras_no_texto = texto.split(' ')
+    if len(palavras_no_texto) >= 2:
+      if palavras_no_texto[-2] in lista_sufixos_de_ref:
+        if eh_numero(palavras_no_texto[-1]): # Se formato texto contem no final uma ref (ex: BR 101)
+          #plpy.info('                                          ',palavras_no_texto[-1])
+          texto = palavras_no_texto[-2] + '-' + palavras_no_texto[-1]
+          return texto
+
+    # 3. Primeira letra maiúscula, resto minúscula
+    def capitalize_word(word):
+        if any(char.isdigit() for char in word):
+            return word.upper()
+        else:
+            return word.capitalize()
+
+    texto = ' '.join(capitalize_word(word) for word in texto.split())
+
+    # 4. Substituições especiais
+    esp_repl = [
+        # preposições e conjunções
+        (' Da ', ' da '), (' De ', ' de '), (' Do ', ' do '), (' Das ', ' das '), (' Dos ', ' dos '),
+        (' Na ', ' na '), (' No ', ' no '), (' Em ', ' em '), (' Nas ', ' nas '), (' Nos ', ' nos '),
+        (' Com ', ' com '), (' Para ', ' para '), (' Pras ', ' pras '), (' Pros ', ' pros '), 
+        (' Pelas ', ' pelas '), (' Pelos ', ' pelos '), (' Ate ', ' até '), (' Sobre ', ' sobre '), 
+        # Palavras com apóstrofo
+        ('Dagua', 'd\'Água'), ('Davila', 'd\'Ávila'), ('Deca', 'd\'Éça'),
+        ('Dalvorada', 'd\'Alvorada'), ('Dazevedo', 'd\'Azevedo'), #''
+        # Letra 'e' como conjunção
+        (' Vinte E ', ' Vinte e '), (' Trinta E ', ' Trinta e '), (' Quarenta E ', ' Quarenta e '),
+        (' Cinquenta E ', ' Cinquenta e '), (' Sessenta E ', ' Sessenta e '), (' Setenta E ', ' Setenta e '),
+        (' Oitenta E ', ' Oitenta e '), (' Noventa E ', ' Noventa e '), (' Cento E ', ' Cento e '),
+        (' Cento E ', ' Cento e '), (' Duzentos E ', ' Duzentos e '), (' Trezentos E ', ' Trezentos e '),
+        (' Quatrocentos E ', ' Quatrocentos e '), (' Quinhentos E ', ' Quinhentos e '), (' Seissentos E ', ' Seissentos e '),
+        (' Setecentos E ', ' Setecentos e '), (' Oitocentos E ', ' Oitocentos e '), (' Novecentos E ', ' Novecentos e '),
+        (' Mil E ', ' Cento e '), 
+        # 'e' como conjugação do verbo ser
+        (' Deus E ', ' Deus é '), 
+    ]
+
+    for old, new in esp_repl:
+        texto = texto.replace(old, new)
+
+    # 5. Converter números romanos para maiúsculas
+    def is_roman_numeral(word):
+        roman_numeral_pattern = re.compile(r'^(?=[MDCLXVI])M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$', re.IGNORECASE)
+        return roman_numeral_pattern.match(word) is not None
+    def convert_roman_to_uppercase(word):
+        if is_roman_numeral(word):
+            return word.upper()
+        return word
+    texto = ' '.join(convert_roman_to_uppercase(word) for word in texto.split())
+
+    # 6. Substituir palavra por sua versão acentuada se não for uma ref
+    conn = psycopg2.connect(database="ibge_censo2022_addr_coord", user="postgres", password="postgres", host="localhost", port="5432")
+    cur = conn.cursor()
+
+    cur.execute("SELECT substituir_de, substituir_para FROM public.palavras_para_substituir;")
+    substituicoes = cur.fetchall()
+    palavras_no_texto = texto.split(' ')
+
+    for substituir_de, substituir_para in substituicoes:
+        for palavra in palavras_no_texto:
+            if palavra == substituir_de:
+                texto = texto.replace(substituir_de,substituir_para)
+
+    cur.close()
+    conn.close()
+
+    return texto
+
+return formatar_texto(texto)
+$$;
+
+
+-- Extrair Apartamentos e similares para compor addr:flats
+DROP FUNCTION IF EXISTS public.extrair_complemento(TEXT[], TEXT[], TEXT[]);
+CREATE OR REPLACE FUNCTION public.extrair_complemento(nom_comp_list TEXT[], val_comp_list TEXT[], compl_tipo_list TEXT[])
+RETURNS TEXT
+LANGUAGE plpython3u
+AS $$
+  # Initialize a list to hold the matched values
+  matched_values = []
+  
+  # Iterate through the nom_comp_list
+  for i in range(len(nom_comp_list)):
+    # Check if the current item matches any item in compl_tipo_list
+    if nom_comp_list[i] in compl_tipo_list:
+      # If the corresponding val_comp_list item is not empty, add it to the matched_values list
+      if val_comp_list[i]:
+        matched_values.append(val_comp_list[i])
+  
+  # Return the joined matched values or an empty string if no match is found
+  return ';'.join(matched_values) if matched_values else ''
+$$;
+
+
+22. Formata nomes de ruas na tabela de faces
+DROP TABLE IF EXISTS public.faces_de_logradouros_nome_completo_logradouro;
+CREATE TABLE public.faces_de_logradouros_nome_completo_logradouro AS
+SELECT 
+  id,
+  formatar_texto(
+	  (  COALESCE(nm_tip_log,'') || ' ' || 
+         COALESCE(nm_tit_log,'') || ' ' || 
+         COALESCE(nm_log,'')
+      ) ) as nome_completo_logradouro
+FROM public.faces_de_logradouros;
+
+
+
+23. Configurar endereços para importação | incluir alinhamento por faces
+DROP TABLE IF EXISTS public.pontos_enderecos;
+CREATE TABLE public.pontos_enderecos AS
+   SELECT 
+      (SUBSTRING("CEP" FROM 1 FOR 5) || '-' || SUBSTRING("CEP" FROM 6 FOR 3))::CHAR(9) as "addr:postcode",
+      public.formatar_texto( COALESCE("NOM_TIPO_SEGLOGR",'') || ' ' || 
+                             COALESCE("NOM_TITULO_SEGLOGR",'') || ' ' || 
+                             COALESCE("NOM_SEGLOGR",'') ) as "addr:street",
+      public.formatar_texto("DSC_LOCALIDADE") as "addr:suburb", -- checar necessidade. mais aconselhável mapear a delimitação dos bairros
+      NULLIF(CASE WHEN "NUM_ENDERECO" > 99999 THEN NULL ELSE "NUM_ENDERECO" END, NULL) as "addr:housenumber", -- Se numero for maior que 99999, ignorar.
+      NULL as "addr:block", -- Quadra onde o endereço está localizado. Útil onde em locais como o Distrito Federal
+      NULL as "addr:block_number", -- Número da Quadra onde o endereço está localizado. Útil onde em locais como o Distrito Federal
+      public.formatar_texto(
+        array_to_string(
+            array[
+                NULLIF(COALESCE("NOM_COMP_ELEM1", '') || ' ' || COALESCE("VAL_COMP_ELEM1", ''), ' '),
+                NULLIF(COALESCE("NOM_COMP_ELEM2", '') || ' ' || COALESCE("VAL_COMP_ELEM2", ''), ' '),
+                NULLIF(COALESCE("NOM_COMP_ELEM3", '') || ' ' || COALESCE("VAL_COMP_ELEM3", ''), ' '),
+                NULLIF(COALESCE("NOM_COMP_ELEM4", '') || ' ' || COALESCE("VAL_COMP_ELEM4", ''), ' '),
+                NULLIF(COALESCE("NOM_COMP_ELEM5", '') || ' ' || COALESCE("VAL_COMP_ELEM5", ''), ' ')
+            ], ', '
+        )
+      ) as "addr:complement",
+      public.formatar_texto(public.extrair_complemento(
+        array[
+                COALESCE("NOM_COMP_ELEM1", ''),
+                COALESCE("NOM_COMP_ELEM2", ''),
+                COALESCE("NOM_COMP_ELEM3", ''),
+                COALESCE("NOM_COMP_ELEM4", ''),
+                COALESCE("NOM_COMP_ELEM5", '')
+            ],
+        array[
+                COALESCE("VAL_COMP_ELEM1", ''),
+                COALESCE("VAL_COMP_ELEM2", ''),
+                COALESCE("VAL_COMP_ELEM3", ''),
+                COALESCE("VAL_COMP_ELEM4", ''),
+                COALESCE("VAL_COMP_ELEM5", '')
+            ],
+        array[
+	            'APARTAMENTO', 'CASA', 'FUNDOS', 'FRENTE', 'LOJA', 
+	            'QUITINETE', 'SALA', 'PORTA', 'GARAGEM', 'QUARTO', 
+	            'DEPOSITO', 'COMODO', 'BOX', 'SUITE', 'CHALE', 'PORAO',
+	            'PECA', 'CABINE', 'BANCA', 'GUICHE', 'SALAO'
+	        ]
+        )) as "addr:door", -- Número ou nome de um apartamento, escritório ou sala em separado. Parece não haver precisão nos dados para importá-los, porem em conjunto compoe "addr:flats"
+      NULL as "addr:flats", -- lista de apartamentos no mesmo addr:housenumber, para isso, é preciso agrupar vários domicílios em um único endereço
+      NULL as "addr:floor", -- andar de um prédio	
+      NULL as "addr:housename",
+      NULL as "addr:milestone", -- KM da rodovia onde endereço está localizado
+      NULL as "addr:place", -- quando o endereço está atrelado a uma área e não à rua
+      NULL as "addr:unit", -- número ou nome do bloco
+      identificar_amenity(NULL) as "amenity",
+      identificar_craft(NULL) as "craft"
+      identificar_office(NULL) as "office",
+      identificar_shop(NULL) as "shop",
+      identificar_cuisine(NULL) as "cuisine"
+      ST_SetSRID(ST_MakePoint("LONGITUDE", "LATITUDE"), 4326) AS geom
+   FROM public.dados_tipos_corrigidos;
+   
+
+24. Reposiciona (EM CONSTRUÇÃO)
+
+-- Pontos 2022: Alinha ponto de endereço ao ponto sobre a linha da face mais próxima
+SELECT 
+    p."NUM_ENDERECO",  -- Select all columns from the points table
+    ST_ClosestPoint(l.geom, ST_SetSRID(ST_MakePoint(p."LONGITUDE", p."LATITUDE"), 4326)) AS moved_point -- Calculate the nearest point on the line
+FROM 
+    public.zz_amostra_sm_dados_tipos_corrigidos p -- Points table
+JOIN 
+    public.zz_amostra_sm_faces_de_logradouros l -- Lines table
+	-- ^ mudar para geometria direcionada e com offset ^
+ON 
+    p."COD_SETOR" = l.cd_setor
+    AND p."NUM_QUADRA" = l.cd_quadra::smallint
+    AND p."NUM_FACE" = l.cd_face::smallint
+WHERE l.nm_log = 'CARLOS GOMES'
+ORDER BY 
+    p.id; -- Or any other identifier for ordering
+
+-- Pontos 2010 (a fazer): Alinha ponto sobre a face distribuidos uniformemente | incluir 0's. Remover depois.
+A IMPLEMENTAR
+
+-- Pontos 2010 (a fazer): Alinha ponto sobre a face distribuidos conforme estimativa de posicionamento pela metragem.
+A IMPLEMENTAR
+
+-- Obtem centroide das 3 opções acima, como geometria final do ponto
+
+   
+   
+   
+25. Metodologia a ser adotada para a importação (subida de dados pro OSM)
+
+Utiliza-se um Tasking Manager. O mapeador seleciona a área que quer importar e no JOSM vai carregar uma camada com os dados a serem importados, e uma com os dados do OSM, então por meio do plugin conflação, vai se adicionando os dados que estão prontos para importar para a camada principal. Quando tudo já estiver pronto, faz-se a subida dos dados pro OSM.
+Nesse processo será preciso ajustar para que os nomes das ruas como estão no OSM, estão batendo com os nomes que estão nos endereços a serem importados. Para isso também existe uma estilo de pintura no JOSM que facilita a identificação por meio de cores das que estão ou não batendo. Em algumas cidades será aconselhável manter os nomes como estão no OSM, já em outras, será melhor ajustar conforme o IBGE.   
