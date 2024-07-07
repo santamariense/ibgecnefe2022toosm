@@ -938,6 +938,68 @@ SELECT
       ) ) as nome_completo_logradouro
 FROM public.faces_de_logradouros;
 
+-- Obtem complementos de endereço
+DROP FUNCTION IF EXISTS public.extrair_complemento(TEXT[], TEXT[], TEXT);
+CREATE OR REPLACE FUNCTION public.extrair_complemento(nom_comp_list TEXT[], val_comp_list TEXT[], chave_a_extrair TEXT)
+RETURNS TEXT
+LANGUAGE plpython3u
+AS $$
+
+  if chave_a_extrair == 'addr:door':
+    matched_values = []
+    compl_tipo_list = [
+                'APARTAMENTO', 'CASA', 'FUNDOS', 'FRENTE', 'LOJA', 
+                'QUITINETE', 'SALA', 'PORTA', 'GARAGEM', 'QUARTO', 
+                'DEPOSITO', 'COMODO', 'BOX', 'SUITE', 'CHALE', 'PORAO',
+                'PECA', 'CABINE', 'BANCA', 'GUICHE', 'SALAO'
+                ]
+    # Obtem a lista de valores
+    for i in range(len(nom_comp_list)):
+      if nom_comp_list[i] in compl_tipo_list:
+        if val_comp_list[i]:
+          matched_values.append(val_comp_list[i])
+    return ';'.join(matched_values) if matched_values else None
+
+  if chave_a_extrair == 'addr:floor':
+    matched_values = []
+    compl_tipo_list = [
+                'ANDAR', 'TERREO', 'PAVIMENTO'
+                ]
+    # Obtem a lista de valores
+    for i in range(len(nom_comp_list)):
+      if nom_comp_list[i] in compl_tipo_list:
+        if val_comp_list[i]:
+          if nom_comp_list[i] == 'TERREO':
+            matched_values.append('0')
+          else:
+            matched_values.append(val_comp_list[i])
+    return ';'.join(matched_values) if matched_values else None
+
+  if chave_a_extrair == 'addr:housename':
+    matched_values = []
+    compl_tipo_list = [
+                'EDIFICIO', 'CHACARA', 'ESTANCIA', 'FAZENDA', 'GLEBA', 'GRANJA', 'QUINTA', 'SITIO', 'PREDIO', 'CONDOMINIO'
+                ]
+    # Obtem a lista de valores
+    for i in range(len(nom_comp_list)):
+      if nom_comp_list[i] in compl_tipo_list:
+        if val_comp_list[i]:
+           matched_values.append(nom_comp_list[i]+' '+val_comp_list[i])
+    return ';'.join(matched_values) if matched_values else None
+
+  if chave_a_extrair == 'addr:block':
+    matched_values = []
+    compl_tipo_list = [
+                'MODULO','QUADRA'
+                ]
+    # Obtem a lista de valores
+    for i in range(len(nom_comp_list)):
+      if nom_comp_list[i] in compl_tipo_list:
+        if val_comp_list[i]:
+           matched_values.append(nom_comp_list[i]+' '+val_comp_list[i])
+    return ';'.join(matched_values) if matched_values else None
+	
+$$;
 
 
 23. Configurar endereços para importação | incluir alinhamento por faces
