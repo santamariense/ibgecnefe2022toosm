@@ -572,7 +572,7 @@ ah. COD_TIPO_ESPECI | Tipo da edificação dos domicílios | NULL values = 18.3%
           ESTANCIA: 
           FAZENDA: FZ, 
           FRENTE: FRENT, FR, FT, FRT, FRENTES, FRNTE, FRENTW, FREBTE, FRRNTE, FEENTE, FRTE, FERNTE, FRENE, FFRENTE
-          FUNDOS: FDOS, FUNDOD, FNDS, FNS, FUNFOS, FND, FUDOS, FUNDO, FINDOS, FNDOS, FUNDUS, FRUNDOS, FYNDOS, FUUNDOS, FUNDOOS, FUNSOS, FUNDOW, FUDS
+          FUNDOS: FDOS, FUNDOD, FNDS, ¿FNS?, FUNFOS, FND, FUDOS, FUNDO, FINDOS, FNDOS, FUNDUS, FRUNDOS, FYNDOS, FUUNDOS, FUNDOOS, FUNSOS, FUNDOW, FUDS
           GALERIA: 
           GARAGEM: GARAG
           GLEBA: GLEB
@@ -639,6 +639,12 @@ CREATE TABLE public.tipos_de_pontos_de_interesse AS
       FROM public.dadoscrus
       GROUP by "DSC_ESTABELECIMENTO"
       ORDER by ocorrencias DESC;
+
+  Importado tipos_de_pontos_de_interesse_top_10mil_ocorrencias editado pela comunidade. ',' foi substituido por '<' porque ',' foi usado como separador. apóstrofo substituido por ^. Serão corrigidos no banco de dados.
+    python3 01_loadcsv2psql.py : Instrução de configuração no próprio código
+  
+-- Continuação em tratamento_tipos_pontos_de_interesse.sql 
+  
 
 20. Pontos de endereços: Montagem de dicionários de palavras a serem substituidas, principalmente para correção de falta de acentuação
   https://portilexicon.icmc.usp.br/ - CC-BY 4.0 | contatar https://www.linkedin.com/in/lucasgmm/
@@ -1171,3 +1177,32 @@ A IMPLEMENTAR
 
 Utiliza-se um Tasking Manager. O mapeador seleciona a área que quer importar e no JOSM vai carregar uma camada com os dados a serem importados, e uma com os dados do OSM, então por meio do plugin conflação, vai se adicionando os dados que estão prontos para importar para a camada principal. Quando tudo já estiver pronto, faz-se a subida dos dados pro OSM.
 Nesse processo será preciso ajustar para que os nomes das ruas como estão no OSM, estão batendo com os nomes que estão nos endereços a serem importados. Para isso também existe uma estilo de pintura no JOSM que facilita a identificação por meio de cores das que estão ou não batendo. Em algumas cidades será aconselhável manter os nomes como estão no OSM, já em outras, será melhor ajustar conforme o IBGE.   
+
+================================================================================================
+40. A ser decidido pela comunidade:
+================================================================================================
+
+- Offset contendo a distância do alinhamento original das faces para dentro da quadra:
+  - opções: 0 a x metros 
+- Numeração em ruas com nomes como "Sem Nome", "Sem Denominação", "S/N":
+  - opções:
+    - Importar normalmente (Ficando para serem corrigidas quando se conhecer o nome ou quando a rua receber nome). É relativamente fácil detectá-las.
+    - Não importar, ficando como possibilidade de revisão para os próximos anos ou mesmo para o próximo censo.
+- addr:street x addr:place
+  - Apresenta-se as opções prontas (tabela preenchida pela comunidade). Havendo discordância, se vota cada discordância em separado
+- Como cada complemento é mineirado para extração de complementos dentro de complementos
+- Qual o procedimento a ser adotado para extração da tag addr:milestone (o "KM" existente em alguns endereços atrelados a rodovias)
+- Qual intervalo de numeração será aceito para ser addr:housenumber
+- Quais palavras do "dicionário" serão usadas para fazer a acentuação, ou mesmo correção de palavras, quer seja em nomes de ruas ou mesmo em outros campos.
+  - É preciso atentar para não contaminar os dados com uso de dicionário que venha a causar qualquer problema de incompatibilidade com Open Database License usada pelo OSM.
+- Quais pontos de interesse serão importados? Todos? Se não todos, quais?
+  - Havendo divergências de tags, votação
+- Existe a possibilidade de confirmar alguns dados usando dados do Censo de 2010. Como faríamos para diferenciar por exemplo, um número de porta (ou CEP, ...) que consta no CNEFE 2022, mas não no de 2010? Usaríamos tag source para isso?
+- Um endereço pode conter vários blocos, vamos importar cada um deles de forma separada? Qual o procedimento a ser adotado para serarar um do outro?
+- Nome do prédio:
+  - Como deve ser extraído? De qual campo? Quais os prefixos de nomes que podem ser considerados?
+  - Qual a chave da tag a ser usada: addr:housename=*? building=* + name=*? building:name=*?
+- COD_UNICO contém número identificador de domicílio. O código é permanente? Se sim, vale a penas importar? Com qual tag? IBGE:COD_UNICO?
+
+
+
