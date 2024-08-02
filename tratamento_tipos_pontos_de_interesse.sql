@@ -107,7 +107,7 @@ ORDER BY occurrences DESC;
 -- _NOME_ --
 -- #TODO --
 
--- LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP -> shop=yes --
+-- LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP|STORE -> shop=yes --
  UPDATE public.tipos_de_pontos_de_interesse
  SET shop = CASE
       WHEN shop IS NULL THEN 'yes'
@@ -115,8 +115,8 @@ ORDER BY occurrences DESC;
       ELSE shop
     END,
 	substituicoes_aplicadas = CASE
-      WHEN substituicoes_aplicadas IS NULL THEN 'LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP'
-      WHEN NOT('LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP'
+      WHEN substituicoes_aplicadas IS NULL THEN 'LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP|STORE'
+      WHEN NOT('LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP|STORE' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';LOJA|LOJAS|LOJINHA|LOJINHAS|SHOP|STORE'
       ELSE substituicoes_aplicadas
     END
  WHERE ( 'LOJA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
@@ -127,7 +127,10 @@ ORDER BY occurrences DESC;
          'L0JAS' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
          'L0JINHA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
          'SHOP' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
-         'SH0P' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' '))
+         'STORE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'STORES' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ESTORE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ESTORES' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' '))
        ) AND ocorrencias <= 65;
 
 -- BAR -> amenity=pub --
@@ -283,19 +286,21 @@ ORDER BY occurrences DESC;
     END
  WHERE 'ESCRITORIO' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) AND ocorrencias <= 65;
 
--- MUNICIPAL -> operator=Municipio --
+-- MUNICIPAL|DO MUNICIPIO -> operator=Município --
  UPDATE public.tipos_de_pontos_de_interesse
  SET "operator" = CASE
-      WHEN "operator" IS NULL THEN 'Municipio'
-      WHEN NOT('Municipio' = ANY(string_to_array("operator", ';'))) THEN "operator" || ';Municipio'
+      WHEN "operator" IS NULL THEN 'Município'
+      WHEN NOT('Município' = ANY(string_to_array("operator", ';'))) THEN "operator" || ';Município'
       ELSE "operator"
     END,
 	substituicoes_aplicadas = CASE
-      WHEN substituicoes_aplicadas IS NULL THEN 'MUNICIPAL'
-      WHEN NOT('MUNICIPAL' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';MUNICIPAL'
+      WHEN substituicoes_aplicadas IS NULL THEN 'MUNICIPAL|DO MUNICIPIO'
+      WHEN NOT('MUNICIPAL|DO MUNICIPIO' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';MUNICIPAL|DO MUNICIPIO'
       ELSE substituicoes_aplicadas
     END
- WHERE 'MUNICIPAL' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) AND ocorrencias <= 65;
+ WHERE ( 'MUNICIPAL' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+		 "DSC_ESTABELECIMENTO" LIKE '% DO MUNIC%' 
+       ) AND ocorrencias <= 65;
 
 -- ESPACO : ignorar --
 
@@ -323,7 +328,7 @@ ORDER BY occurrences DESC;
          'REVENDA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' '))
        ) AND ocorrencias <= 65;
 
--- MERCEARIA|CONVENIENCIA -> shop=convenience --
+-- MERCEARIA|CONVENIENCIA|ARMAZEM -> shop=convenience quando ARMAZEM não for significar "local onde se armazena algo" --
  UPDATE public.tipos_de_pontos_de_interesse
  SET shop = CASE
       WHEN shop IS NULL THEN 'convenience'
@@ -331,8 +336,8 @@ ORDER BY occurrences DESC;
       ELSE shop
     END,
 	substituicoes_aplicadas = CASE
-      WHEN substituicoes_aplicadas IS NULL THEN 'MERCEARIA|CONVENIENCIA'
-      WHEN NOT('MERCEARIA|CONVENIENCIA' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';MERCEARIA|CONVENIENCIA'
+      WHEN substituicoes_aplicadas IS NULL THEN 'MERCEARIA|CONVENIENCIA|ARMAZEM'
+      WHEN NOT('MERCEARIA|CONVENIENCIA|ARMAZEM' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';MERCEARIA|CONVENIENCIA|ARMAZEM'
       ELSE substituicoes_aplicadas
     END
  WHERE ( 'MERCEARIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
@@ -348,7 +353,17 @@ ORDER BY occurrences DESC;
 		 "DSC_ESTABELECIMENTO" LIKE '%CONVINIE%' OR
 		 "DSC_ESTABELECIMENTO" LIKE '%CONVENE%' OR
 		 "DSC_ESTABELECIMENTO" LIKE '%CONVN%' OR
-		 "DSC_ESTABELECIMENTO" LIKE '%CONVINE%' 
+		 "DSC_ESTABELECIMENTO" LIKE '%CONVINE%' OR
+		 ( ( 
+		     "DSC_ESTABELECIMENTO" LIKE '%ARMAZEM%' OR
+		     "DSC_ESTABELECIMENTO" LIKE '%ARMAZEN%' OR
+		     "DSC_ESTABELECIMENTO" LIKE '%ARMAZEN %' OR
+		     "DSC_ESTABELECIMENTO" LIKE '%ARMAZENS%' 
+           ) AND (
+             "DSC_ESTABELECIMENTO" NOT LIKE '%ZEM DE %' OR
+             "DSC_ESTABELECIMENTO" NOT LIKE '%ZEN PARA %'
+		   )
+		 )
        ) AND ocorrencias <= 65;
 
 -- MECANICA -> shop=car_repair --
@@ -1414,7 +1429,7 @@ ORDER BY occurrences DESC;
          'MILIO' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' '))
        ) AND ocorrencias <= 65;
 
--- VAGO|VAGA|FECHADO|FECHADA|VAZIO|VAZIA --
+-- VAGO|VAGA|FECHADO|FECHADA|VAZIO|VAZIA|ABANDONADO|ABANDONADA|ANTIGO|ANTIGA|DESATIVADO|DESATIVADA --
 -- #TODO: Trabalhar tag --
 
 -- SEM DENOMINACAO|SEM NOME --
@@ -1468,7 +1483,7 @@ ORDER BY occurrences DESC;
          'PLANTASOES' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) 
        ) AND ocorrencias <= 65;
 
--- SERRALHERIA -> craft= metal_construction quando contem a palavra SERRALHERIA --
+-- SERRALHERIA|SERRALHEIRO -> craft= metal_construction quando contem a palavra SERRALHERIA ou SERRALHEIRO --
  UPDATE public.tipos_de_pontos_de_interesse
  SET craft = CASE
       WHEN craft IS NULL THEN 'metal_construction'
@@ -1476,8 +1491,8 @@ ORDER BY occurrences DESC;
       ELSE craft
     END,
 	substituicoes_aplicadas = CASE
-      WHEN substituicoes_aplicadas IS NULL THEN 'SERRALHERIA'
-      WHEN NOT('SERRALHERIA' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';SERRALHERIA'
+      WHEN substituicoes_aplicadas IS NULL THEN 'SERRALHERIA|SERRALHEIRO'
+      WHEN NOT('SERRALHERIA|SERRALHEIRO' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';SERRALHERIA|SERRALHEIRO'
       ELSE substituicoes_aplicadas
     END
  WHERE ( 'SERRALHERIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
@@ -1488,7 +1503,9 @@ ORDER BY occurrences DESC;
          'CERALHERIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
          'CERALERIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
          'CERRALERIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
-         'SERARRELIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) 
+         'SERARRELIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'SERRALHEIRO' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'SERRALHERO' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) 
 	   ) AND ocorrencias <= 65;
 
 -- PAPELARIA|ARTIGOS/MATERIAIS/SUPREMENTOS ESCRITORIO -> shop=stationery --
@@ -1604,7 +1621,7 @@ ORDER BY occurrences DESC;
          "DSC_ESTABELECIMENTO" LIKE '%SORBET%'  
        ) /*AND
        (
-         "DSC_ESTABELECIMENTO" NOT LIKE '%FABRICA%' OR -- #Todo: ignorar?
+         "DSC_ESTABELECIMENTO" NOT LIKE '%FABRICA%' OR -- #TODO: ignorar?
          "DSC_ESTABELECIMENTO" NOT LIKE '%INDUSTR%' 
 	   )*/ AND ocorrencias <= 65;
 	   
@@ -1631,4 +1648,169 @@ ORDER BY occurrences DESC;
          "DSC_ESTABELECIMENTO" LIKE 'COLEGO%' OR 
          "DSC_ESTABELECIMENTO" LIKE 'COLEJO%' 
        )  AND ocorrencias <= 65;
+
+-- IMOVEIS|IMOBILIARIA -> office=estate_agent quando contem IMOVEIS ou IMOBILAIRIA, mas não contem REGISTRO nem CARTORIO --
+ UPDATE public.tipos_de_pontos_de_interesse
+ SET office = CASE
+      WHEN office IS NULL THEN 'estate_agent'
+      WHEN NOT('estate_agent' = ANY(string_to_array(office, ';'))) THEN office || ';estate_agent'
+      ELSE office
+    END,
+	substituicoes_aplicadas = CASE
+      WHEN substituicoes_aplicadas IS NULL THEN 'IMOVEIS|IMOBILIARIA'
+      WHEN NOT('IMOVEIS|IMOBILIARIA' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';IMOVEIS|IMOBILIARIA'
+      ELSE substituicoes_aplicadas
+    END
+ WHERE ( "DSC_ESTABELECIMENTO" LIKE '%IMOVEIS%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IM0VEIS%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IMOVIES%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IMOVIS%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IMOVES%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IMOBILIARIA%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IM0BILIARIA%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IMOBILHARIA%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IMOBOLIARIA%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%IMOBILARIA%' OR
+         "DSC_ESTABELECIMENTO" LIKE '%EMOBILIARIA%'
+       ) AND (
+            "DSC_ESTABELECIMENTO" NOT LIKE '%REGIST%' OR
+            "DSC_ESTABELECIMENTO" NOT LIKE '%CART%'
+       ) AND ocorrencias <= 65;
+
+-- ACOUGUE|CASA DE CARNES -> shop=butcher --
+ UPDATE public.tipos_de_pontos_de_interesse
+ SET shop = CASE
+      WHEN shop IS NULL THEN 'butcher'
+      WHEN NOT('butcher' = ANY(string_to_array(shop, ';'))) THEN shop || ';butcher'
+      ELSE shop
+    END,
+	substituicoes_aplicadas = CASE
+      WHEN substituicoes_aplicadas IS NULL THEN 'ACOUGUE|CASA DE CARNES'
+      WHEN NOT('ACOUGUE|CASA DE CARNES' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';ACOUGUE|CASA DE CARNES'
+      ELSE substituicoes_aplicadas
+    END
+ WHERE ( 'ACOUGUE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ACOUGUES' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ACOGUE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ACOGUES' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ACOUGHE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'AC0UGUE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'AC0UGUES' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'AC0GUE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ASSOUGUE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ASSOGUE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ASOGUE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ASOGE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+		 "DSC_ESTABELECIMENTO" LIKE '%CASA%CARNE%'
+       ) AND ocorrencias <= 65;
+
+-- COMUNIDADE|CENTRO COMUNITARIO -> amenity=community_centre  --
+ UPDATE public.tipos_de_pontos_de_interesse
+ SET amenity = CASE
+      WHEN amenity IS NULL THEN 'community_centre'
+      WHEN NOT('community_centre' = ANY(string_to_array(amenity, ';'))) THEN amenity || ';community_centre'
+      ELSE amenity
+    END,
+	substituicoes_aplicadas = CASE
+      WHEN substituicoes_aplicadas IS NULL THEN 'COMUNIDADE|CENTRO COMUNITARIO'
+      WHEN NOT('COMUNIDADE|CENTRO COMUNITARIO' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';COMUNIDADE|CENTRO COMUNITARIO'
+      ELSE substituicoes_aplicadas
+    END
+ WHERE ( "DSC_ESTABELECIMENTO" LIKE 'COMUNIDADE%' OR 
+         "DSC_ESTABELECIMENTO" LIKE 'C0MUNIDADE%' OR 
+         "DSC_ESTABELECIMENTO" LIKE 'COMUDADE%' OR 
+         "DSC_ESTABELECIMENTO" LIKE 'COMUNID%' OR 
+         "DSC_ESTABELECIMENTO" LIKE 'CEN%COMUNIT%%' OR
+         "DSC_ESTABELECIMENTO" LIKE 'CEN%C0MUNIT%%'
+       ) AND ocorrencias <= 65;
+
+-- INDUSTRIA|INDUSTRIAL -> landuse=industrial building=industrial --
+ UPDATE public.tipos_de_pontos_de_interesse
+ SET landuse = CASE
+      WHEN landuse IS NULL THEN 'industrial'
+      WHEN NOT('industrial' = ANY(string_to_array(landuse, ';'))) THEN landuse || ';industrial'
+      ELSE landuse
+    END,
+	building = CASE
+      WHEN building IS NULL THEN 'industrial'
+      WHEN NOT('industrial' = ANY(string_to_array(building, ';'))) THEN building || ';industrial'
+      ELSE building
+    END,
+	substituicoes_aplicadas = CASE
+      WHEN substituicoes_aplicadas IS NULL THEN 'INDUSTRIA|INDUSTRIAL'
+      WHEN NOT('INDUSTRIA|INDUSTRIAL' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';INDUSTRIA|INDUSTRIAL'
+      ELSE substituicoes_aplicadas
+    END
+ WHERE ( "DSC_ESTABELECIMENTO" LIKE '%INDUSTRIA%' OR 
+         "DSC_ESTABELECIMENTO" LIKE '%IMDUSTRIA%'
+       ) AND ocorrencias <= 65;
+	   
+-- INFORMATICA --
+-- #TODO: Trabalhar subtipos --
+	   
+-- INSTITUTO --
+-- #TODO: Trabalhar subtipos --
+
+-- ESTADUAL|DO ESTADO -> operator=Estado --
+ UPDATE public.tipos_de_pontos_de_interesse
+ SET "operator" = CASE
+      WHEN "operator" IS NULL THEN 'Estado'
+      WHEN NOT('Estado' = ANY(string_to_array("operator", ';'))) THEN "operator" || ';Estado'
+      ELSE "operator"
+    END,
+	substituicoes_aplicadas = CASE
+      WHEN substituicoes_aplicadas IS NULL THEN 'ESTADUAL|DO ESTADO'
+      WHEN NOT('ESTADUAL|DO ESTADO' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';ESTADUAL|DO ESTADO'
+      ELSE substituicoes_aplicadas
+    END
+ WHERE ( 'ESTADUAL' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'ESTADOAL' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+		 "DSC_ESTABELECIMENTO" LIKE '% DO ESTAD%' OR 
+		 "DSC_ESTABELECIMENTO" LIKE '% D0 ESTAD%' 
+       ) AND ocorrencias <= 65;
+
+-- MARCENARIA|MARCENEIRO -> craft=joiner quando contem a palavra MARCENARIA ou MARCENEIRO --
+ UPDATE public.tipos_de_pontos_de_interesse
+ SET craft = CASE
+      WHEN craft IS NULL THEN 'joiner'
+      WHEN NOT('joiner' = ANY(string_to_array(craft, ';'))) THEN craft || ';joiner'
+      ELSE craft
+    END,
+	substituicoes_aplicadas = CASE
+      WHEN substituicoes_aplicadas IS NULL THEN 'MARCENARIA|MARCENEIRO'
+      WHEN NOT('MARCENARIA|MARCENEIRO' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';MARCENARIA|MARCENEIRO'
+      ELSE substituicoes_aplicadas
+    END
+ WHERE ( 'MARCENARIA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'MARCENEIRO' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         'MARCENEIRA' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' '))
+	   ) AND ocorrencias <= 65;
+
+-- LOJA DE PRESENTES -> shop=gift quando contem a palavra PRESENTES --
+ UPDATE public.tipos_de_pontos_de_interesse
+ SET shop = CASE
+      WHEN shop IS NULL THEN 'gift'
+      WHEN NOT('gift' = ANY(string_to_array(shop, ';'))) THEN shop || ';gift'
+      ELSE shop
+    END,
+	substituicoes_aplicadas = CASE
+      WHEN substituicoes_aplicadas IS NULL THEN 'LOJA DE PRESENTES'
+      WHEN NOT('LOJA DE PRESENTES' = ANY(string_to_array(substituicoes_aplicadas, ';'))) THEN substituicoes_aplicadas || ';LOJA DE PRESENTES'
+      ELSE substituicoes_aplicadas
+    END
+ WHERE ( 'PRESENTES' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) OR
+         ( 'PRESENTE' = ANY(string_to_array("DSC_ESTABELECIMENTO", ' ')) AND
+		   (
+             "DSC_ESTABELECIMENTO" LIKE '%LOJA%' OR 
+             "DSC_ESTABELECIMENTO" LIKE '%L0JA%' OR 
+             "DSC_ESTABELECIMENTO" LIKE '%ARTIG%' 
+		   )
+		   AND  "DSC_ESTABELECIMENTO" NOT LIKE '%DEUS%'
+		 ) 
+       ) AND ocorrencias <= 65;
+
+
+
+
+
 
