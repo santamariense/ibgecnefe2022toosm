@@ -6772,4 +6772,149 @@ PORTARIA7;Portaria 7
 3TENTOS; 3Tentos
 0ASIS; Oásis
 0CEAN; Ocean
+0INTAS; Pontas
+3IRO ANDAR;Andar 3
+0LHO; Olho
+2ND;Segundo
+2NDO;Segundo
+3NERGI;Energia
+1OA;10A
+4OA;40A
+3OA;30A
+2OA;20A
+17OA;170A
+7OA;70A
+5OB;50B
+21B;21B
+2OB;20B
+1OB;10B
+7OB;70B
+61OB;610B
+2PIS;Andar 2
+5SEC;5àsec
+5ASEC;5àsec
+7TIMA;Sétima
+09TL;09 Lote
+0UTRA;Outra
+0UTO;Outro
+0WO;Owo
+0ZBA;OZBA
+ABAIX0;Abaixo
+ADOLF0;Adolfo
+ANEX0;Anexo
+ANGEL0;Ângelo
+AREZZ0;Arezzo
+AUT0;Auto
+BAIX0;Baixo
+BARRAC0;Barraco
+BEC0;Beco
+BRADESC9;Bradesco
+BRANC0;Branco
+BURACA0;Buracão
+CABELEREIR0;Cabeleireiro
+CABELEREIRA0;Cabeleireira
+CADA0;
+CASEIR0;Caseiro
+CENTR0;Centro
+CERT0;Certo
+CHAT0;Chato
+CHIMB0;Chimbó
+CINC0;Cinco
+COM0;Como
+COMERCI0;Comércio
+CONDOMINI0;Condomínio
+CRUZAMENT0;Cruzamento
+DOI2;Dois
+EQUERD0;Esquerdo
+ESTABELECIMENT0;Estabelecimento
+ESTACIONAMENT0;Estacionamento
+FERR0;Ferro
+GERALD0;Geraldo
+GERMINAD0;Geminado 
+HERDAD0;Herdado
+JAT0;Jato
+CONJUNT0;Conjunto
+LAZA0;Lazão
+MEIO0;Meio
+MILH0;Milho
+MUR0;Muro
+NELSINH0;Nelsinho
+NOV0;Novo
+NOV3;Nova 3
+NOV18;Nov 18
+NOV22;Nov 22
+NOV232;Nov 232
+PACHEC0;Pacheco
+PALDALH0;Paldalho
+PEA0;Peão
+PEDR0;Pedro
+PIC0;Pico
+PIS0;Piso
+PONT0;Ponto
+PORA0;Porão
+PRET2;Preto 2
+PRET0;Preto
+PRET1;Preto 1
+PRIMEI0;Primeiro
+PRIMEIR0;Primeiro
+PRIMEIR9;Primeiro
+QUART10;Quarto 10
+QUART11;Quarto 11
+QUART12;Quarto 12
+QUART13;Quarto 13
+QUART0;Quarto
+QUART1;Quarto 1
+QUI03;Quadra I03
+QUI1234;Quitinete 1234
+REBOC0;Reboco
+RECIB0;Recibo
+RECIB9;Recibo
+RECUAD0;Recuado
+SEGUND0;Segundo
+SERVIC3;Service
+SIBRAD0;Sobrado
+SITI0;Sítio
+SOBRAD0;Sobrado
+SOBRAD01;Sobrado 1
+SOBRAD098;Sobrado 98
+SOBRAD1;Sobrado 1
+SOBRAD2;Sobrado 2
+SOBRAD4;Sobrado 4
+SOBRAD9;Sobrado 9
+STUDI0;Studio
+SUBSOL0;Subsolo
+SUBSOL1;Subsolo 1
+SUPERMERCAD0;Supermercado
+TANQUINH0;Tanquinho
+TELHAD0;Telhado
+TERR0;Térreo
+TERR1;Térreo
+TERR2;Térreo
+TERR3;Terra 4
+TERR4;Térreo
+TERR112;Térreo
+TERE0;Térreo
+TERREN0;Terreno
+TOCADOLOB0;Toca do Lobo
+TRANCOS0;Trancoso
+VAG0;Vago
+VAZI0;Vazio
+CAMINHA0;Caminhão
+CAMP3;CAMPO 3
+CAMP2;CAMPO 2
+CAMP1;CAMPO 1
+CAMP0;CAMPO
+CAPA0;Capão
+CHIMB0;Chimbó
+CONDOMINI0;Condomínio
+ELM0;Elmo
+
+
+
+
+
+
+
+
+
 

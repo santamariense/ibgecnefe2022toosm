@@ -993,7 +993,8 @@ def formatar_texto(texto):
         (' Pelas ', ' pelas '), (' Pelos ', ' pelos '), (' Ate ', ' até '), (' Sobre ', ' sobre '),  (' Até ', ' até '), 
         (' Ao ', ' ao '), 
         # advérbios
-        (' Antes ', ' antes '), (' Apos ', ' após '), (' Debaixo ', ' debaixo '), (' Depois ', ' depois '), 
+        (' Antes ', ' antes '), (' Apos ', ' após '), (' Debaixo ', ' debaixo '), (' Depois ', ' depois '),  (' Acima ', ' acima '), 
+        (' Dentro ', ' dentro '), 
         # Palavras com apóstrofo
         ('Dagua', 'd\'Água'), ('Davila', 'd\'Ávila'), ('Deca', 'd\'Éça'),
         ('Dalvorada', 'd\'Alvorada'), ('Dazevedo', 'd\'Azevedo'), #''
@@ -1264,6 +1265,7 @@ Nesse processo será preciso ajustar para que os nomes das ruas como estão no O
 - COD_UNICO contém número identificador de domicílio. O código é permanente? Se sim, vale a penas importar? Com qual tag? IBGE:COD_UNICO?
 - O que vai na tag name, quando nome do estabelecimento?
   - Uma opção apresentada foi o valor vai para description. Se tiver menos de 10 ocorrências, vai para name.
-
+- Quais valores vão para o addr:flats? Apartamento, Quitinete, Sala...
+- O que fazer com addr:street que não se interligam com o name=* da rua, mas sim com o ref=*? Exemplo: endereço Rodovia BR-123. No OSM não costumamos repetir o ref=* no nome da rua. Para compatibilizar, vamos passar a repetir? Ou será que neste caso, a compatibilização se dá pelo ref?
 
 
