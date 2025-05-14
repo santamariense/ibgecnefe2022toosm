@@ -6908,6 +6908,30 @@ CAPA0;Capão
 CHIMB0;Chimbó
 CONDOMINI0;Condomínio
 ELM0;Elmo
+ERRE0;Térreo
+ESQUESD0;Esquerdo
+TOCADOLOB0;Toca do Lobo
+1PAVIMENT0;1 Pavimento
+3PERT0;3 Perto
+34SOBRAD02;34 Sobrado 2
+A235DESMEMBR;A235 Desmembramento
+AL0JAMENTO;Alojamento
+ALT0S;Altos
+ALV0RADA;Alvorada
+AMAR3LA;Amarela
+AMAR3LI;Amarelo
+AMIG0S;Amigos
+ANIMA8S;Animais
+AN0MBIENTAL;Ambiental
+AN1O;Andar 10
+ANT8GO;Antigo
+AN3XO;Anexo
+APARTAMENT0P;Apartamento
+AP0S;após
+AMAR3LA;Amarela
+ASS9XIACAO;Associação
+A2UDE;Açude
+
 
 
 

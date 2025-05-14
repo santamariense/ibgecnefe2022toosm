@@ -841,7 +841,7 @@ COM;Comércio
 COMER;Comércio 
 COMERCIAL;Comercial 
 COMERCIO;Comércio 
-COMO; como 
+COMO;como 
 COMODO;Cômodo 
 COMPL;Complemento 
 COMPLCASA;Complemento Casa 
@@ -1177,7 +1177,7 @@ ELETRO;Eletro
 ELETROPAULO;Eletropaulo 
 ELHOMARTI;Elho Marti 
 ELT;E Lote 
-EM;
+EM;em 
 EMBAIX;embaixo 
 EMBAIXO;embaixo 
 EMBAIXODA;embaixo da 
@@ -1231,30 +1231,29 @@ EQUADRA;E Quadra
 EQUADROAP;E Quadra O Apartamento 
 EQUATORIAL;Equatorial 
 EQUDRA;E Quadra 
-ER;
+ER;ER 
 ERONDINALOT;Erondina Lote 
-ERRE;
-ERS;
-ES;
-ESB;
-ESC;
+ERS;ERS 
+ES;ES 
+ESB;ESB 
+ESC;Escada 
 ESCAD;Escada 
 ESCADA;Escada 
 ESCADARIA;Escadaria 
-ESCALACE;
+ESCALACE;Escalace 
 ESCOLA;Escola 
 ESCRITO;Escritório 
 ESCRITORIO;Escritório 
 ESCRITRIO;Escritório 
-ESP;
+ESP;Esp 
 ESPECIAL;Especial 
 ESPERACS;Espera Casa 
 ESPERAN;Esperança 
 ESPERANCA;Esperança 
 ESPERANCOSA;Esperançosa 
-ESPGL;
-ESQ;
-ESQC;
+ESPGL;Esp Gleba 
+ESQ; Esquerda 
+ESQC; Esquerda Casa 
 ESQCASA;Esquerda Casa 
 ESQERD;Esquerdo 
 ESQR;Esquerdo 
@@ -1269,8 +1268,7 @@ ESQUERDACAS;Esquerda Casa
 ESQUERDC;Esquerdo Casa 
 ESQUERDO;Esquerdo 
 ESQUERDOD;Esquerdo D
-ESQUESD;
-ESQUIC;
+ESQUIC;Esquina Casa 
 ESQUINA;Esquina 
 ESQUINACASA;Esquina Casa 
 ESQUINACRUA;Esquina com Rua 
@@ -1282,40 +1280,39 @@ ESTABELECIMENTOL;Estabelecimento
 ESTABELECIMETO;Estabelecimento 
 ESTABELECOMENTO;Estabelecimento 
 ESTABULO;Estábulo 
-ESTD;
+ESTD;Estrada 
 ESTETICA;Estética 
 ESTILO;Estilo 
-ESTOP;
+ESTOP;Stop 
 ESTRADA;Estrada 
 ESTREGUIA;Estrela Guia 
 ESTRELA;Estrela 
 ESTRELAGUIC;Estrela Guia 
 ESTUFA;Estufa 
-ET;
+ET;ET 
 ETAP;Etapa 
 ETAPA;Etapa 
 ETAPAN;Etapa N
 ETAPAV;Etapa 
-ETP;
-EW;
-EX;
+ETP;Etapa 
+EW;EW 
+EX;EX 
 EXISTE;Existe 
 EXPRESSION;Expression 
-EY;
-EZ;
-F;
-FA;
-FAA;
+EY;EY 
+EZ;EZ 
+FA;FA 
+FAA;FAA 
 FABIOCASA;Fábio Casa 
-FAC;
-FACAO;
+FAC;Face 
+FACAO;Facão 
 FACE;Face 
-FAD;
+FAD;FAD 
 FAISQUEIRA;Faisqueira 
 FAMA;Fama 
-FAO;
-FAQ;
-FAR;
+FAO;FAO 
+FAQ;FAQ 
+FAR;FAR 
 FARMACIA;Farmácia 
 FAS;Fase 
 FASE;Fase 
@@ -1477,13 +1474,13 @@ FUNDIARIA;Fundiária
 FUNDIS;Fundos 
 FUNDO;Fundos 
 FUNDOA;Fundos 
-FUNDOCAM;
+FUNDOCAM;Fundos Cam 
 FUNDOCASA;Fundos Casa 
-FUNDOCOM;
+FUNDOCOM;Fundos com 
 FUNDOD;Fundos 
 FUNDODSL;Fundos Lote 
 FUNDOLADOC;Fundos Lado C
-FUNDON;
+FUNDON;Fundos 
 FUNDOS;Fundos 
 FUNDOSA;Fundos A
 FUNDOSANDAR;Fundos Andar 
@@ -2055,7 +2052,7 @@ MANMIR;Manmir
 MANSA;Mansa 
 MANUMIRIM;Manumirim 
 MAOTIPO;Matipó 
-MAOTIPOC;
+MAOTIPOC;Matipó Casa 
 MAPIM;Mapim 
 MAQINARIOS;Maquinários 
 MAQUINA;Máquina 
@@ -2496,12 +2493,12 @@ PPORAO;P Porão
 PPS;PPS 
 PPSTS;PPSTS 
 PQ;P Quadra 
-PR;
+PR;PR 
 PRACA;Praça 
 PRAINHASUCAM;Prainha Sucam 
 PRATA;Prata 
 PRATALADON;Prata Lado 
-PRE;
+PRE;Prédio 
 PRED;Prédio 
 PREDI;Prédio 
 PREDIO;Prédio 
@@ -2730,15 +2727,14 @@ QUTINETE;Quitinete
 QV;Quadra V
 QVIELA;Q Viela 
 QW;Quadra W
-QWWWWWWW;
+QWWWWWWW;1
 QX;Quadra X
 QY;Quadra Y
 QZ;Quadra Z
-R;
-RA;
+RA;RA 
 RAFAEL;Rafael 
-RAI;
-RAIM;
+RAI;Raimundo 
+RAIM;Raimundo 
 RAIMUND;Raimundo 
 RAJADINHA;Rajadinha 
 RAMAL;Ramal 
@@ -2749,12 +2745,11 @@ RAPADURA;Rapadura
 RAPOSOTAVAR;Raposo Tavares 
 RBQUADRAD;Rua B Quadra D
 RC;RC 
-RCS;
-RD;
-RDO;
-RE;
-REAL;
-REBO;
+RCS;RCS 
+RDO;RDO 
+RE;Residencial 
+REAL;Real 
+REBO;Reboco 
 REBOCO;Reboco 
 RECALVORADA;Recanto Alvorada 
 RECAN;Recanto 
@@ -2851,8 +2846,8 @@ ROQUE;Roque
 RORRE;Torre 
 ROS;Rosa 
 ROSA;Rosa 
-ROSARON;
-ROSATOMCAS;
+ROSARON;Rosaron 
+ROSATOMCAS;Rosa Tom Casa 
 ROSSETTICS;Rossetti Casa 
 ROUXINOL;Rouxinol 
 ROXA;Roxa 
@@ -2884,9 +2879,9 @@ RUAFCS;Rua F Casa
 RUAG;Rua G
 RUAGCS;Rua G Casa 
 RUAIJ;Rua IJ
-RUAJOAALE;Rua João Ale 
-RUAJOALEXA;
-RUANOVASRU;
+RUAJOAALE;Rua João Alexandre 
+RUAJOALEXA;Rua João Alexandre 
+RUANOVASRU;Rua Novas Russas 
 RUAS;Rua S
 RUASERRARIA;Rua Serraria 
 RUAV;Rua V
@@ -2958,8 +2953,8 @@ SB;SB
 SBASTIA;São Sebastião 
 SBC;SBC 
 SBCS;SBCS 
-SBD;
-SBO;
+SBD;SBD 
+SBO;SBO 
 SBRADO;Sobrado 
 SC;SC 
 SCA;SCA 
@@ -2982,7 +2977,7 @@ SEGUNDO;Segundo
 SEGUNDOCASA;Segundo Casa 
 SEGUNDOPISO;Segundo Piso 
 SEGURO;Seguro 
-SEIDINGER;
+SEIDINGER;Seidinger 
 SEM;sem 
 SEMSA;SEMSA 
 SENHORA;Senhora 
@@ -3004,7 +2999,7 @@ SESE;Sede
 SET;Setembro 
 SETENDEKM;Setende Km 
 SETOR;Setor 
-SEV;
+SEV;SE 
 SEVERINO;Severino 
 SF;SF 
 SG;SG 
@@ -3046,8 +3041,8 @@ SMSVC;SMSVC
 SN;SN 
 SNA;SNA 
 SNCASA;SN Casa 
-SND;
-SNDAR;
+SND;SND 
+SNDAR;Andar 
 SNE;SNE 
 SNFRENTE;SN Frente 
 SNG;SNG 
@@ -3103,17 +3098,17 @@ SPT;SPT
 SQ;SQ 
 SQM;SQM 
 SQR;SQR 
-SR;
-SRAI;
+SR;SR 
+SRAI;SRAI 
 SRAPARECIDA;Senhora Aparecida 
-SRC;
-SRF;
-SS;
-SSA;
-SSAC;
-SSF;
-SSM;
-ST;
+SRC;SRC 
+SRF;SRF 
+SS;Subsolo 
+SSA;SSA 
+SSAC;SSAC 
+SSF;SSF 
+SSM;SSM 
+ST;ST 
 STAANGELA;Santa Angela 
 STAAUGUSTA;Santa Augusta 
 STABEATRIZ;Santa Beatriz 
@@ -3133,8 +3128,8 @@ STRELIZIA;Strelizia
 STSLUZIACS;Santa Luzia Casa 
 STTEREZINHA;Santa Terezinha 
 SU;SU 
-SUA;
-SUB;
+SUA;Sua 
+SUB;Subsolo 
 SUBAOLOCASA;Subsolo Casa 
 SUBINDO;Subindo 
 SUBS;Subsolo 
@@ -3143,7 +3138,6 @@ SUBSOLO;Subsolo
 SUBSOLOB;Subsolo B
 SUBSOLOCASA;Subsolo Casa 
 SUBTENENCIA;Subtenência 
-SUC;
 SUCAM;Sucam 
 SUCAMC;Sucam Casa 
 SUCAME;Sucam 
@@ -3204,7 +3198,6 @@ TEM;Tem
 TEMP;Temp 
 TEMPO;Tempo 
 TEOFILO;Teófilo 
-TER;
 TERCEIRA;Terceira 
 TERCEIROC;Terceiro C
 TEREO;Térreo 
@@ -3251,7 +3244,6 @@ TJOLOAVISTA;Tijolo à Vista
 TL;TL 
 TN;TN 
 TO;TO 
-TOCADOLOB;
 TOCAR;Tocar 
 TOL;Toldo 
 TOLARDO;Tolardo 

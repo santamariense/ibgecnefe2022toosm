@@ -257,7 +257,7 @@ SELECT id,
    )AS geom_direcionada_com_offset_8
 FROM public.faces_de_logradouros_direcionadas;
 
-
+12. Cria um tabela de CEPs únicos e as relaciona com suas respectivas faces de logradouros. Código disponível em src/sql/make_postal_code_map.sql
 
 13. Pontos de endereços 2010: Extrair cada coluna dos dados originais.
 DROP TABLE IF EXISTS public.dados2010_tipos_corrigidos;
@@ -1267,5 +1267,15 @@ Nesse processo será preciso ajustar para que os nomes das ruas como estão no O
   - Uma opção apresentada foi o valor vai para description. Se tiver menos de 10 ocorrências, vai para name.
 - Quais valores vão para o addr:flats? Apartamento, Quitinete, Sala...
 - O que fazer com addr:street que não se interligam com o name=* da rua, mas sim com o ref=*? Exemplo: endereço Rodovia BR-123. No OSM não costumamos repetir o ref=* no nome da rua. Para compatibilizar, vamos passar a repetir? Ou será que neste caso, a compatibilização se dá pelo ref?
-
-
+- Números com zeros à esquerda: Remover?
+- Sugestão de não mover um ponto se distância a ser deslocada for maior que X metros.
+- Letra modificadora deve ir junto com addr:housenumber ou deve ir em tag própria como addr:unit ou addr:door?
+- É necessário a tag fixme que trata sobre pontos a serem alinhados?
+- uma etiqueta proxy do tipo fixmeIBGE
+- O que deve ir em addr:housenumber=*
+- O que pode ir junto do número em addr:housenumber? Tudo? A-Z apenas?
+- Em qual tag por o órgão que deu numeração aos domicílios?
+  1- Colocar em uma nota: "Número FNS", "Número SUCAM", etc
+  2- Tratar como o que de fato é: modificador do endereço e colocar em addr:housenumber;
+  3- Colocar em addr:unit;
+  4- Ignorar - "varrer para debaixo do tapete";
